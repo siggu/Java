@@ -1,1 +1,2 @@
-[백준 문제 풀이](https://github.com/siggu/Baekjoon)
+1. [백준 문제 풀이](https://github.com/siggu/Baekjoon)
+
