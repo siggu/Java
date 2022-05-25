@@ -71,8 +71,35 @@
   > 운영체제별로 프로그램을 실행하고 관리하는 방법이 다르기 때문에 운영체제별로 자바 프로그램을 별도로 개발하는 것보다 운영체제와 자바 프로그램을 중계하는 JVM을 두어 자바 프로그램이 여러 운영체제에서 동일한 실행 결과가 나오도록 설계한 것이다.
 
 - 바이트 코드는 모든 JVM에서 동일한 실행 결과를 보장하지만, JVM은 운영체제에 종속적이다.(운영체제에 맞는 JVM이 설치되어야 한다)
-- 
-<center?<img src = "https://user-images.githubusercontent.com/106001755/170177138-5bb2e637-7e55-4e64-955a-cb539bb80f32.png" width="300" height="400"></center>
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170177138-5bb2e637-7e55-4e64-955a-cb539bb80f32.png" width="300" height="400"></p>
+
+<div align = "center">
+JVM, 자바 프로그램의 실행 단계
+</div>
+</details>
+
+<details markdown="1">
+<summary>1.3 자바 개발 환경 구축</summary>
+</details>
+
+<details markdown="1">
+<summary>1.4 자바 프로그램 개발 순서</summary>
+
+### 1.4.1 소스 작성에서부터 실행까지  
+자바 프로그램을 개발하려면 다음과 같은 순서로 진행해야 한다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170179296-7d3043be-cd8f-41e2-99f4-f42e8d0b7d51.png" width ="300" height="200"></p>
+
+<div align = "center">
+ 자바 프로그램 개발 순서
+</div>
+
+
+
+
+
+
 
 
 
