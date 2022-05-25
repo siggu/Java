@@ -104,9 +104,6 @@ java.exe 명령어가 실행되면 JVM은 바이트 코드 파일을 메모리�
 - 클래스 : 필드 또는 메서드를 포함하는 블록
 - 메서드 : 어떤 일을 처리하는 실행문들을 모아 놓은 블록
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170183347-22b6cb80-ef56-4160-b213-79a7f70ca2b9.png" width="500" height="200"></p>
-
-
 ```java
 public class Hello {
   public static void main(String[] args) {
@@ -115,6 +112,18 @@ public class Hello {
   }
 }
 ```
+
+`Hello`가 클래스 이름이고, 그 다음에 있는 중괄호({)부터 그와 짝을 이루는 중괄호(})까지가 클래스 블록이다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170183347-22b6cb80-ef56-4160-b213-79a7f70ca2b9.png" width="500" height="150"></p>
+
+- 클래스 이름은 소스 파일명과 대소문자가 일치해야 한다.
+- 숫자로 시작할 수 없다.
+- 공백을 포함해서는 안 된다.
+
+메서드는 클래스처럼 이름과 블록을 가진다. `main`이 메서드 이름이고, 중괄호({)부터 그와 짝을 이루는 중괄호(})까지가 메서드 블록이다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170183958-493542d8-4cc0-4581-b77e-d7735c50440b.png" width="500" height="150"></p>
 
 
 
