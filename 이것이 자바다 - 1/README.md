@@ -129,3 +129,138 @@ public class Hello {
 
 
 </details>
+
+<details markdown="1">
+<summary>6.10 인스턴스 멤버와 this</summary>
+### 6.10.3 정적 초기화 블록
+정적 필드는 다음과 같이 필드 선언과 동시에 초기값을 주는 것이 보통이다.
+
+`static double pi = 3.14159;`
+
+- **생성자에서 초기화 작업을 할 수 없다.** 생성자는 객체 생성 시에만 실행되기 때문이다.
+
+- 자바는 정적 필드의 초기화 작업을 위해서 `정적 블록(static)`을 제공한다.
+
+- **정적 블록은 클래스가 메모리로 로딩될 때 자동적으로 실행된다.(= 프로그램이 시작되자마자)** 정적 블록은 클래스 내부에 여러 개가 선언되어도 상관없다.
+> 프로그램이 실행될 때 정적 블록은 자동적으로 실행된다.
+
+- 클래스가 메모리로 로딩될 때 선언된 순서대로 실행된다.
+
+### 6.12 패키지
+넘어감!(자연스럽게 배우는 내용이라서...)
+
+### 6.13 접근 제한자
+public, protected, 생략("default"라고 부른다), private
+
+접근 지정자의 목적
+- 클래스나 일부 멤버를 **공개하지 않고** 다른 클래스에서 **접근하지 못하도록** 막음(**information hiding**)
+- 
+
+
+
+
+
+
+```java
+public static TelevisionExample {
+  public static void main(String args[]) {
+    System.out.println(Television.info);
+    }
+  }
+}
+
+public class Television {
+  static String company = "Samsung";
+  static String model = "LCD";
+  static String info;
+  
+  static {
+    info = company + "-" + model;
+  }
+}
+```
+
+### 6.10.4 정적 메서드와 블록 선언 시 주의할 점
+- 정적 메서드와 정적 블록을 선언할 때 주의할 점은 객체가 없어도 실행된다는 특징 때문에, 이들 내부에 인스턴스 메서드를 사용할 수 없다.
+- 객체 자신의 참조인 `this` 키워드도 사용이 불가능하다.
+> static은 static 끼리 논다.
+
+### 6.10.5 싱글톤(Singleton)
+- 하나의 어플리케이션 내에서 단 하나만 생성되는 객체(뒤로 미룸!)
+
+## 6.11 final 필드와 상수
+### 6.11.1 final 필드
+- 최종적인 값을 가지고 있는 필드 = 값을 변경할 수 없는 필드
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170189712-2f56e51c-f70c-4fac-82bd-8185d925aa5e.png" width="300" height="450"></p>
+
+final 필드의 초기값을 줄 수 있는 방법은 두 가지 밖에 없다.
+
+1. 필드 선언 시에 주는 방법
+
+2. 생성자에서 주는 방법
+
+
+[ Person.java ] final 필드 선언과 초기화
+```java
+public class Person {
+  final String nation = "Korea";  // 생성자 초기화를 해줘야 한다.
+  final Stirng ssn;
+  String name;
+  
+  public Person(Stirng ssn, String name) {
+    this.ssn = ssn;
+    this.name = name;
+  }
+}
+```
+
+[ PersonExample.java ] 필드 테스트
+```java
+public class PersonExample {
+  public static void main(String[] args) {
+    Person p1 = new Person("123456-1234567", "계백");
+    
+    System.out.println(p1.nation);
+    System.out.println(p1.ssn);
+    System.out.println(p1.name);
+    
+    //p1.nation = "usa";
+    //p1.ssn = "654321-7654321";
+    p1.name = "을지문덕";
+  }
+}
+```
+
+출력 결과
+```java
+Korea
+123456-1234567
+계백
+```
+
+### 6.11.2 상수(static final)
+일반적으로 불변의 값을 상수라고 부른다. final 필드는 한 번 초기화되면 수정할 수 없는 필드라고 했다. 그렇다면 final 필드를 상수라고 불러도 되지 않을까? 하지만 final 필드를 상수라고 부르진 않는다. 불변의 값은 객체마다 저장할 필요가 없는 공용성을 띄고 있으며, 여러 가지 값으로 초기화될 수 없기 때문이다. final 필드는 객체마다 저장되고, 생성자의 매개값을 통해서 여러 가지 값을 가질 수 있기 때문에 상수가 될 수 없다.
+
+pi = 3.141592... // 변하지 않는 값(상수)  
+누군가 pi가 몇이냐 했을 때 "3"이라 하면 변한 것이다.
+
+```java
+Person p1 = new Person("3.14", "PI1");
+Person p2 = new Person("3", "PI2");
+
+p1.printPi();
+p2.printPi();
+```
+
+상수는 static이면서 final이어야 한다. static final 필드는 객체마다 저장되지 않고, 클래스에만 포함된다. 그리고 한 번 초기값이 저장되면 변경할 수 없다.
+
+그냥 final은 상수가 아니고, static final ~ 하면 상수가 된다.(static은 하나밖에 없기 때문)
+
+클래스 변수(필드)는 클래스당 하나만 가지고 있다.(클래스 안에서 하나씩 가지고 있다는 뜻)
+
+
+
+
+
+</details>
