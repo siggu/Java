@@ -125,10 +125,390 @@ public class Hello {
 
 <p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170183958-493542d8-4cc0-4581-b77e-d7735c50440b.png" width="500" height="150"></p>
 
+</details>
 
+
+## Chapter 05 참조 타입
+<details markdown="1">
+<summary>5.1 데이터 타입 분류</summary>
+
+- 자바의 데이터 타입에는 크게 기본타입(원시 타입 : primitive type)과 참조 타입(reference type)으로 분류된다. 
+> 기본 타입이란 정수, 실수, 문자, 논리 리터럴을 저장하는 타입을 말한다. 
+> 참조 타입이란 객체(object)의 번지를 참조하는 타입으로 배열, 열거, 클래스, 인터페이스 타입을 말한다.
+
+- 기본 타입을 이용해서 선언된 변수는 실제 값을 변수 안에 저장하지만, 참조 타입을 이용해서 선언된 변수는 메모리의 번지를 값으로 갖는다.
+> 번지를 통해 객체를 참조한다는 뜻에서 참조 타입이라고 부른다.
+
+예를 들어 int와 double로 선언된 변수 age와 price가 있고, String 클래스로 선언된 name과 hobby가 다음과 같이 선언되어 있다고 가정해보자.
+
+```java
+// 기본 타입 변수
+int age = 25;
+double price = 100.5;
+
+// 참조 타입 변수
+String name = "신용권";
+String hobby = "독서";
+```
+
+메모리상에서 이 변수들이 갖는 값을 그림으로 표현하면 다음과 같다. 
+> 변수가 스택 영역에 생성되고 객체는 힙 영역에 생성된다는 것만 알아두자.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170263212-44d7b4a6-60b6-4c92-a529-fb3811a66dd3.png" witdh="450" height="300"></p>
+
+int와 double 변수인 age와 price는 직접 값을 저장하고 있지만, String 클래스 변수인 name과 hobby는 힙 영역의 String 객체 주소 값을 가지고 있다. 주소를 통해 객체를 참조한다는 뜻에서 String 클래스 변수를 참조 타입 변수라고 한다.
+
+</details>
+
+<details markdown="1">
+<summary>5.2 메모리 사용 영역</summary>  
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170264902-569f3029-432e-45da-98c4-262ce21f41a8.png" width="350" height="400"></p>
+
+
+### 5.2.1 메서드(Method) 영역
+- 메서드 영역에는 코드에서 사용되는 클래스(~.class)들을 클래스 로더로 읽어 클래스별로 런타임 상수풀(runtime constant pool), 필드(field) 데이터,메서드(method) 데이터, 메서드 코드, 생성자(constructor) 코드 등을 분류해서 저장한다. 
+- 메서드 영역은 JVM이 시작할 때 생성되고, 모든 스레드가 공유하는 영역이다.
+
+1. 힙(Heap) 영역
+- 객체와 배열이 생성되는 영역이다.
+- 힙 영역에 생성된 객체와 배열은 JVM 스택 영역의 변수나 다른 객체의 필드에서 참조한다. 
+- 참조하는 변수나 필드가 없다면 의미 없는 객체가 되기 때문에 이것을 쓰레기로 취급하고 JVM은 쓰레기 수집기(Garbage Collector)를 실행시켜 쓰레기 객체를 힙 영역에서 자동으로 제거한다.
+
+2. JVM 스택(Stack) 영역
+- 각 스레드마다 하나씩 존재하며 스레드가 시작될 때 할당된다.  
+- 변수가 이 영역에 생성되는 시점은 초기화가 될 때, 즉 최초로 변수에 값이 저장될 때 기본 타입 변수와 참조 타입 변수가 추가(push)되거나 제거(pop)된다.  
+- 변수는 선언된 블록 안에서만 존재하고 블록을 벗어나면 스택에서 제거된다.
 
 
 </details>
+
+<details markdown="1">
+<summary>5.3 참조 변수의 ==, != 연산</summary>  
+
+- 기본 타입 변수의 ==, != 연산은 변수의 값이 같은지, 아닌지 조사
+- 참조 타입 변수의 ==, != 연산은 동일한 객체를 참조하는지, 다른 객체를 참조하는지 조사
+> 참조 타입 변수의 값은 힙 영역의 객체 주소이므로 결국 **주소 값을 비교**하는 것이 된다.
+> 동일한 주소 값을 갖고 있다는 것은 동일한 객체를 참조한다는 의미이다.
+>>( == 의 결과 : True, !=의 결과 : False)
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170266646-6a5d6a9e-68d1-4851-b629-ecc7080635f8.png" width="450" height="300"></p>
+
+상기 그림에서 `refVar1`과 `refVar2`는 서로 다른 객체를 참조하고 있으므로 == 및 != 연산의 결과는 다음과 같다.
+
+```java
+refVar1 == refVar2 // 결과 : false
+refVar1 != refVar2 // 결과 : true
+```
+
+`refVar2`과 `refVar3`는 동일한 객체2를 참조하고 있으므로 == 및 != 연산의 결과는 다음과 같다.
+
+```java
+refVar2 == refVar3 // 결과 : true
+refVar2 != refVar3 // 결과 : false
+```
+
+</details>
+
+<details markdown="1">
+<summary>5.4 null과 NullPointerException</summary>  
+
+- 참조 타입 변수는 힙 영역의 객체를 참조하지 않는다는 뜻으로 `null(널)` 값을 가질 수 있다. null 값도 초기값으로 사용할 수 있기 때문에 null로 초기화된 참조 변수는 스택 영역에 생성된다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170267700-bf82ee0a-7676-4dc5-83fd-3b9b5cc3bc68.png" width="350" height="160"></p>
+
+참조 타입 변수가 `null` 값을 가지는지 확인하려면 다음과 같이 ==, != 연산을 수행하면 된다. 상기 그림에서 reVar1은 힙 영역의 객체를 참조하므로 연산의 결과는 다음과 같다.
+
+```java
+refVar1 == null // 결과값 : false
+refVar1 != null // 결과값 : true
+```
+
+refVar2는 null값을 가지므로 연산의 결과는 다음과 같다.
+
+```java
+refVar2 == null // 결과값 : true
+refVar2 != null // 결과값 : false
+```
+
+- 자바는 프로그램 도중에 발생하는 오류를 `예외(Exception)`라고 부른다. 
+- `NullPointerException` 예외는 참조 타입 변수를 잘못 사용하면 발생한다. 
+- 참조 타입 변수가 null을 가지고 있을 경우, 참조 타입 변수는 사용할 수 없다.
+> 참조 타입 변수를 사용하는 것은 곧 객체를 사용하는 것을 의미하는데, 참조할 객체가 없으므로 사용할 수 없는 것이다.
+
+```java
+int[] intArray = null;
+intArray[0] = 10; // NullPointerException
+```
+
+상기 코드에서 `intArray`는 배열 타입 변수이므로 참조 타입 변수이다. 그래서 null로 초기화가 가능하다. 이 상태에서 `intArray[0]`에 10을 저장하려고 하면 NullPointerException이 발생한다. intArray 변수가 참조하는 배열 객체가 없기 때문이다. 다른 코드를 보자
+
+```java
+String str = null;
+System.out.println("총 문자수: " + str.lenth()); // NullPointerException
+```
+
+String은 클래스 타입이므로 참조 타입이다. 따라서 str 변수도 null로 초기화가 가능하다. 이 상태에서 String 객체의 length()라는 메서드를 호출하면 NullPointException이 발생한다. str 변수가 참조하는 String 객체가 없기 때문이다.
+
+</details>
+
+<details markdown="1">
+<summary>5.5 String 타입</summary>
+
+자바는 문자열을 `String` 변수에 저장하기 때문에 다음과 같이 String 변수를 우선 선언해야 한다.
+
+```java
+String 변수;
+```
+
+String 변수에 문자열을 저장하려면 큰 따옴표로 감싼 문자열 리터럴을 대입하면 된다.
+
+```java
+변수 = "문자열";
+```
+
+변수 선언과 동시에 문자열을 저장할 수도 있다.
+
+```java
+String 변수 = "문자열";
+```
+
+다음은 두 개의 String 변수를 선언하고 문자열을 저장한다.
+
+```java
+String name;
+name = "신용권";
+String hobby = "자바";
+```
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170269979-2ea5e0c9-51b2-4d1f-9605-a3f10b8e0b25.png" width="400" height="350"></p>
+
+- 사실 문자열을 String 변수에 저장한다는 말은 틀린 표현이다.
+- 문자열이 직접 변수에 저장되는 것이 아니라, 문자열은 String 객체로 생성되고 변수는 String 객체를 참조한다.
+- 위 그림을 보면 name 변수와 hobby 변수는 스택 영역에 생성되고, 문자열 리터럴인 "신용권"과 "자바"는 힙 영역에 String 객체로 생성된다. 그리고 name 변수와 hobby 변수에는 String 객체의 주소 값이 저장된다.
+
+자바는 문자열 리터럴이 동일하다면 String 객체를 공유하도록 되어 있다. 다음과 같이 name1과 name2 변수가 동일한 문자열 리터럴인 "신용권"을 참조할 경우 name1과 name2는 동일한 String 객체를 참조하게 된다.
+
+```java
+String name1 = "신용권";
+String name2 = "신용권";
+```
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170270608-a04feb77-1d69-403f-925b-6bfafb72cc08.png" width="300" height="200"></p>
+
+일반적으로 변수에 문자열을 저장할 경우에는 문자열 리터럴을 사용하지만, `new` 연산자를 사용해서 직접 String 객체를 생성시킬 수도 있다. new 연산자는 힙 영역에 새로운 객체를 만들 때 사용하는 연산자로 `객체 생성 연산자`라고 한다.
+
+```java
+String name1 = new String("신용권");
+String name2 = new String("신용권");
+```
+
+이 경우 name1과 name2는 서로 다른 String 객체를 참조한다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170271133-23654e4f-8d8e-48c1-916f-5f2b8827a636.png" width="400" height="350"></p>
+
+문자열 리터럴로 생성하느냐 new 연산자로 생성하느냐에 따라 비교 연산자의 결과가 달라질 수 있다. 동일한 문자열 리터럴로 String 객체를 생성했을 경우 == 연산의 결과는 true가 나오지만, new 연산자로 String 객체를 생성했을 경우 == 연산의 결과는 false가 나온다. == 연산자는 변수에 저장된 객체 번지가 동일한지를 검사하기 때문이다.
+
+```java
+String name1 = "신민철";
+String name2 = "신민철";
+String name3 = new String("신민철");
+```
+
+name1과 name2는 동일한 문자열 리터럴로 생성된 객체를 참조하기 때문에 name1 == name2의 결과는 true가 나온다. 그러나 name3는 new 연산자로 String 객체를 별도로 생성했기 때문에 name1 == name3은 false가 나온다. 동일한 String 객체이건 다른 String 객체이건 상관없이 문자열만을 비교할 때에는 String 객체의 `equals()` 메서드를 사용해야 한다. equals() 메서드는 원본 문자열과 매개값으로 주어진 비교 문자열이 동일한지 비교한 후 true 또는 false를 리턴한다.
+
+```java
+boolean result = str1.equals(str2);
+```
+
+```java
+public class StiringEqualsExample {
+  public static void main(String[] args) {
+    String strVar1 = "신민철";
+    String strVar2 = "신민철";
+    
+    if(strVar1 == strVar2) {
+      System.out.println("strVar1과 strVar2는 참조가 같음");
+    } else {
+      System.out.println("strVar1과 strVar2는 참조가 다름");
+    }
+    
+    if(strVar1.equals(strVar2)) {
+      System.out.println("strVar1과 strVar2는 문자열이 같음");
+    }
+    
+    String strVar3 = new String("신민철");
+    String strVar4 = new String("신민철");
+    
+    if(strVar3 == strVar4) {
+      System.out.println("strVar3과 strVar4는 참조가 같음");
+    } else {
+      System.out.println("strVar3과 strVar4는 참조가 다름");
+    }
+    
+    if(strVar3.equals(strVar4)) {
+      System.out.println("strVar3과 strVar4는 문자열이 같음");
+    }
+  }
+}
+```
+
+실행 결과
+```java
+strVar1과 strVar2는 참조가 같음
+strVar1과 strVar2는 문자열이 같음
+strVar3과 strVar4는 참조가 다름
+strVar3과 strVar4는 문자열이 같음
+```
+
+String 변수는 참조 타입이므로 초기값으로 null을 대입할 수 있따. null은 String 변수가 참조하는 String 객체가 없다는 뜻이다.
+```java
+String hobby = null;
+```
+다음 코드처럼 hobby 변수가 String 객체를 참조하였으나, null을 대입함으로써 더 이상 String 객체를 참조하지 않도록 할 수도 있다.
+```java
+String hobby = "여행";
+hobby = null;
+```
+</details>
+
+<details markdown="1">
+<summary>5.6 배열 타입</summary>
+
+### 5.6.1 배열이란?  
+- 같은 타입의 데이터를 연속된 공간에 나열시키고, 각 데이터에 인덱스(index)를 부여해 놓은 자료구조이다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170281779-1334d0c8-6a8a-4e54-86fc-ae3d473ab247.png" width = "900" height="350"></p>
+
+이렇게 성적을 배열로 만들면 성적의 평균값은 배열의 인덱스를 통해 for문으로 쉽게 구할 수 있다.
+```java
+int sum = 0;
+for(int i=0; i<30; i++) {
+  sum += score[i];
+}
+int avg = sum / 30;
+```
+- 배열은 같은 타입의 데이터만 저장할 수 있다.
+> int 배열은 int 값만 저장 가능하고, String 배열은 문자열만 저장 가능하다.
+
+- 한 번 생성된 배열은 길이를 늘리거나 줄일 수 없다.
+> 만약 길이를 변경해야 한다면 새로운 배열을 생성하고 기존 배열 항목을 새 배열로 복사해야 한다.
+
+### 5.6.2 배열 선언   
+배열을 사용하기 위해선 배열 변수를 선언해야 한다. 배열 변수 선언은 다음과 같이 두 가지 형태로 작성할 수 있다.  
+```java
+타입[ ] 변수;                 타입 변수[];
+```
+
+대괄호 []는 배열 변수를 선언하는 기호로 사용되는데, 타입 뒤에 붙을 수도 있고 변수 뒤에 붙을 수도 있다. 타입은 배열에 저장할 데이터의 타입을 말한다.  
+```java
+int[] intArray;              int inArray[];  
+double[] doubleArray;        double doubleArray[]; 
+String[] strArray;           String strArray[];
+```
+
+배열 참조는 참조 변수에 속한다. 배열도 객체이므로 힙 영역에 생성되고 배열 변수는 힙 영역의 배열 객체를 참조하게 된다. 참조할 배열 객체가 없다면 배열 변수는 null 값으로 초기화될 수 있다.
+```java
+타입[] 변수 = null;
+```
+만약 배열 변수가 null 값을 가진 상태에서 변수[인덱스]로 값을 읽거나 저장하게 되면 NullPointException이 발생한다. 배열 변수는 배열을 생성하고 참조하는 상태에서 값을 저장하고나 읽어야 한다.
+
+### 5.6.3 값 목록으로 배열 생성
+
+배열 항목에 저장될 값의 목록이 있다면, 다음과 같이 간단하게 배열 객체를 만들 수 있다.
+```java
+데이터타입[] 변수 = { 값0, 값1, 값2, 값3, ... };
+```
+- 변수 선언과 동시에 값 목록 대입
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170288746-89cb8dc0-6bb1-4b5f-b2cb-754641c8bee2.png" width="500" height="150"></p>
+
+- 변수 선언 후 값 목록 대입
+```java
+데이터타입[] 변수;
+변수 = new 타입[] { 값0, 값1, 값2, 값3, ... };
+```
+
+중괄호 {}는 주어진 값들을 항목으로 가지는 배열 객체를 힙에 생성하고, 배열 객체의 번지를 리턴한다. 배열 변수는 리턴된 번지를 저장함으로써 참조가 이루어진다. 
+
+[ ArrayCreateByValueListExample1.java ] 값 목록으로 배열 생성
+```java
+public class ArrayCreateByValueListExample1 {
+  public static void main(String[] args) {
+    int[] scores = { 83, 90, 87 };
+    
+    System.out.println("scores[0] : " + scores[0]);
+    System.out.println("scores[1] : " + scores[1]);
+    System.out.println("scores[2] : " + scores[2]);
+    
+    int sum = 0;
+    for(int i = 0; i<3; i++) {
+      sum += scores[i];
+    }
+    System.out.println("총합 : " + sum);
+    double avg = (double) sum / 3;
+    System.out.println("평균 : " + avg);
+  }
+}
+```
+값의 목록으로 배열 객체를 생성할 때 배열 변수를 이미 선언한 후에 다른 실행 문에서 중괄호를 사용한 배열 생성은 허용되지 않는다.
+```java
+타입[] 변수;
+변수 = { 값0, 값1, 값2, 값3, ... }; // 컴파일 에러
+```
+배열 변수를 미리 선언한 후, 값 목록들이 나중에 결정되는 상황이라면 다음과 같이 `new 연산자`를 사용해서 값 목록을 지정해주면 된다. new 연산자 바로 뒤에는 배열 변수 선언에서 사용한 "타입[]"를 붙여주고 중괄호 {}에는 값들을 나열해주면 된다.
+```java
+변수 = new 타입[] { 값0, 값1, 값2, 값3, ... };
+```
+예를 들어 배열 names를 다음과 같이 생성할 수 있다.
+```java
+String[] names = null;
+names = new String[] { "신용권", "홍길동", "김자바"};
+```
+메서드의 매개값이 배열일 경우에도 마찬가지이다. 아래와 같이 매개 변수로 int[] 배열이 선언된 add() 메서드가 있을 경우, 값 목록으로 배열을 생성함과 동시에 add() 메서드의 매개값으로 사용하고자 할 때는 반드시 new 연산자를 사용해야 한다.
+```java
+int add(int[] scores) {...}
+----------------------------------
+int result = add( {95, 85, 90} ); // 컴파일 에러
+int result = add( new int[] {95, 85, 90} );
+```
+[ ArrayCreateByValueListExample2.java ] 값의 리스트로 배열 생성
+```java
+public class ArrayCreateByValueListExample2 {
+  public static void main(String[] args) {
+    int[] scores;
+    scroes = new int[] { 83, 90, 87 };
+    int sum1 = 0;
+    for(int i=0; i<3; i++) {
+      sum1 += scores[i];
+    }
+    System.out.println("총합 : " + sum1);
+    
+    int sum2 = add( new int[] {83, 90, 87} );
+    System.out.println("총합 : " + sum2);]
+    System.out.println();
+  }
+  
+  public static int add(int[] scores) {
+    int sum = 0;
+    for(int i=0; i<3; i++) {
+      sum += scores[i];
+    }
+    return sum;
+  }
+}
+
+}
+```
+실행 결과
+```java
+총합 : 260
+총합 : 260
+```
+
+
+
+
+
+
 
 <details markdown="1">
 <summary>6.10 인스턴스 멤버와 this</summary>
