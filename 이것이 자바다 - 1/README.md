@@ -72,8 +72,7 @@
 
 - 바이트 코드는 모든 JVM에서 동일한 실행 결과를 보장하지만, JVM은 운영체제에 종속적이다.(운영체제에 맞는 JVM이 설치되어야 한다)
 - 
-<img src ="https://user-images.githubusercontent.com/106001755/170176372-80a50890-5f50-45c0-a8db-678186e463d5.png
-" width="100" height="100")
+<img src ="https://user-images.githubusercontent.com/106001755/170176567-84963900-492c-41e9-b44b-9af0d517b353.png" width="100" height="100")
 
 
 
