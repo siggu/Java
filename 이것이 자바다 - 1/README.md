@@ -73,7 +73,7 @@
 
 - 바이트 코드는 모든 JVM에서 동일한 실행 결과를 보장하지만, JVM은 운영체제에 종속적이다.(운영체제에 맞는 JVM이 설치되어야 한다)
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170177138-5bb2e637-7e55-4e64-955a-cb539bb80f32.png" width="300" height="400"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170177138-5bb2e637-7e55-4e64-955a-cb539bb80f32.png" width="450" height="450"></p>
 
 <div align = "center">
 JVM, 자바 프로그램의 실행 단계
@@ -90,7 +90,7 @@ JVM, 자바 프로그램의 실행 단계
 ### 1.4.1 소스 작성에서부터 실행까지  
 자바 프로그램을 개발하려면 다음과 같은 순서로 진행해야 한다.
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170179296-7d3043be-cd8f-41e2-99f4-f42e8d0b7d51.png" width ="300" height="200"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170179296-7d3043be-cd8f-41e2-99f4-f42e8d0b7d51.png" width ="400" height="200"></p>
 
 자바 프로그램을 개발하려면 우선 파일 확장명이 `.java`인 텍스트 파일을 생성하고 프로그램 소스를 작성한다. 이렇게 만들어진 파일을 `자바 소스 파일`이라고 한다. 작성 완료된 자바 소스 파일은 `컴파일러(javac.exe)`로 컴파일해야 한다. 컴파일이 성공되면 확장명이 `.class`인 `바이트 코드 파일`이 생성된다.
 
@@ -164,7 +164,7 @@ int와 double 변수인 age와 price는 직접 값을 저장하고 있지만, St
 
 <details markdown="1">
 <summary>5.2 메모리 사용 영역</summary>  
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170264902-569f3029-432e-45da-98c4-262ce21f41a8.png" width="350" height="400"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170264902-569f3029-432e-45da-98c4-262ce21f41a8.png" width="500" height="400"></p>
 
 
 ### 5.2.1 메서드(Method) 영역
@@ -216,7 +216,7 @@ refVar2 != refVar3 // 결과 : false
 
 - 참조 타입 변수는 힙 영역의 객체를 참조하지 않는다는 뜻으로 `null(널)` 값을 가질 수 있다. null 값도 초기값으로 사용할 수 있기 때문에 null로 초기화된 참조 변수는 스택 영역에 생성된다.
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170267700-bf82ee0a-7676-4dc5-83fd-3b9b5cc3bc68.png" width="350" height="160"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170267700-bf82ee0a-7676-4dc5-83fd-3b9b5cc3bc68.png" width="450" height="160"></p>
 
 참조 타입 변수가 `null` 값을 가지는지 확인하려면 다음과 같이 ==, != 연산을 수행하면 된다. 상기 그림에서 reVar1은 힙 영역의 객체를 참조하므로 연산의 결과는 다음과 같다.
 
@@ -295,7 +295,7 @@ String name1 = "신용권";
 String name2 = "신용권";
 ```
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170270608-a04feb77-1d69-403f-925b-6bfafb72cc08.png" width="300" height="200"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170270608-a04feb77-1d69-403f-925b-6bfafb72cc08.png" width="450" height="180"></p>
 
 일반적으로 변수에 문자열을 저장할 경우에는 문자열 리터럴을 사용하지만, `new` 연산자를 사용해서 직접 String 객체를 생성시킬 수도 있다. new 연산자는 힙 영역에 새로운 객체를 만들 때 사용하는 연산자로 `객체 생성 연산자`라고 한다.
 
@@ -306,7 +306,7 @@ String name2 = new String("신용권");
 
 이 경우 name1과 name2는 서로 다른 String 객체를 참조한다.
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170271133-23654e4f-8d8e-48c1-916f-5f2b8827a636.png" width="400" height="350"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170271133-23654e4f-8d8e-48c1-916f-5f2b8827a636.png" width="450" height="300"></p>
 
 문자열 리터럴로 생성하느냐 new 연산자로 생성하느냐에 따라 비교 연산자의 결과가 달라질 수 있다. 동일한 문자열 리터럴로 String 객체를 생성했을 경우 == 연산의 결과는 true가 나오지만, new 연산자로 String 객체를 생성했을 경우 == 연산의 결과는 false가 나온다. == 연산자는 변수에 저장된 객체 번지가 동일한지를 검사하기 때문이다.
 
