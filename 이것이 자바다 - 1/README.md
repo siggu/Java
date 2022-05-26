@@ -483,7 +483,7 @@ public class ArrayCreateByValueListExample2 {
     System.out.println("총합 : " + sum1);
     
     int sum2 = add( new int[] {83, 90, 87} );
-    System.out.println("총합 : " + sum2);]
+    System.out.println("총합 : " + sum2);
     System.out.println();
   }
   
