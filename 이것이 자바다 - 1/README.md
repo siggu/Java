@@ -506,11 +506,99 @@ public class ArrayCreateByValueListExample2 {
 총합 : 260
 ```
 
+### 5.6.4 new 연산자로 배열 생성
+
+값의 목록을 가지고 있지 않지만, 향후 값들을 저장할 배열로 미리 만들고 싶다면 new 연산자로 다음과 같이 배열 객체를 생성시킬 수 있다.
+
+`타입[] 변수 = new 타입[길이];`
+
+길이는 배열이 저장할 수 있는 값의 수를 말한다. new 연산자로 배열을 생성할 경우에는 이미 배열 변수가 선언된 후에도 가능하다.
+
+`타입[] 변수 = null;`  
+`변수 = new 타입[길이];`
+
+다음은 길이가 5인 int[] 배열을 생성한다.
+
+`int[] intArray = new int[5];`
+
+자바는 intArrayu[0] ~ intArray[4]까지 값이 저장될 수 있는 공간을 확보하고, 배열의 생성 번지를 리턴한다. 리턴된 번지는 intArray 변수에 저장된다. 
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170704706-3e120194-af93-41db-a44e-ed2a3125a98b.png" width="700" height="300"></p>
+
+- 타입별로 배열의 초기값
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170704927-ee9a4919-1e7a-4e43-add7-b99a4e26a294.png" width="400" height="300"></p>
+
+### 5.6.5 배열 길이
+
+배열의 길이간 배열에 저장할 수 있는 전체 항목 수를 말한다. 코드에서 배열의 길이를 얻으려면 다음과 같이 배열 객체의 length 필드를 읽으면 된다. 
+
+```java
+배열변수.length;
+```
+
+다음은 배열 intArray의 길이를 알아보는 코드이다.
+
+```java
+int[] intArray = {10, 20, 30};
+int num = intArray.length;
+```
+
+length 필드는 읽기 전용 필드이기 때문에 값을 바꿀 수 없다.
+
+```java
+intArray.length = 10; // 잘못된 코드
+```
+
+배열의 length 필드는 for문을 사용해서 배열 전체를 루핑할 때 매우 유용하게 사용할 수 있다.
+
+### 5.6.6 커맨드 라인 입력
 
 
 
 
 
+
+
+
+
+
+
+
+
+</details>
+
+## Chapter 06 클래스
+
+<details markdown="1">
+<summary>6.1 객체 지향 프로그래밍</summary>
+
+- 어떤 제품을 만들 때, 부품을 먼저 개발하고 이 부품들을 하나씩 조립해서 완성된 제품을 만들 듯이, 소프트웨어를 개발할 때에도 부품에 해당하는 객체들을 먼저 만들고, 이것들을 하나씩 조립해서 완성된 프로그램을 만드는 기법을 객체 지향 프로그래밍(OOP : Object Oriented Programming)이라고 한다.
+
+- 객체 지향이 나온 이유 : 하드웨어 부품처럼 재사용할 수 있는 방법이 없을까? 에서 시작했다.
+
+### 6.1.1 객체란?
+
+물리적으로 존재하고 추상적으로 생각할 수 있는 것 중에서 자신의 속성(상태)을 가지고 있고, 다른 것과 식별 가능한 것을 말한다.
+
+자바에는 속성과 동작들을 각각 필드(field)와 메서드(method)라고 부른다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170723189-7fc96789-5fa5-4554-8043-ad8561f26b6e.png" width="400" height="300"></p>
+
+### 6.1.2 객체의 상호작용
+
+
+
+
+
+
+
+
+
+
+
+
+</details>
 
 <details markdown="1">
 <summary>6.10 인스턴스 멤버와 this</summary>
