@@ -707,25 +707,79 @@ class Tire {
 new 클래스();
 ```
 
-new는 클래스로부터 객체를 생성시키는 연산자이다.
+- new는 클래스로부터 객체를 생성시키는 연산자이다. new 연산자 뒤에는 생성자가 오는데, 생성자는 클래스() 형태를 가지고 있다. 
+- new 연산자로 생성된 객체는 메모리 힙(heap) 영역에 생성된다. 
+- new 연산자는 힙 영역에 객체를 생성시킨 후, 객체의 주소를 리턴하도록 되어있다.
+- 이 주소를 참조 타입인 클래스 변수에 저장해두면, 변수를 통해 객체를 사용할 수 있다.
 
+```java
+클래스 변수;
+변수 = new 클래스();
+```
 
+클래스 변수 선언과 객체 생성을 한 개의 실행문으로 작성할 수도 있다.
 
+```java
+클래스 변수 = new 클래스();
+```
 
+다음 예제는 Student 클래스를 선언하고 StudentExample 클래스의 main() 메서드에서 Student 객체를 생성한다.
 
+**[ Student.java ] 클래스 선언**
 
+```java
+public class Student {
+}
+```
 
+**[ StudentExample.java ] 클래스로부터 객체 생성**
 
+```java
+public class StudentExample {
+  public static void main(String[] args) {
+    Student s1 = new Student;
+    System.out.println("s1 변수가 Student 객체를 참조합니다.");
+    
+    Student s2 = new Student;
+    System.out.println("s1 변수가 Student 객체를 참조합니다.");
+  }
+}
+```
+실행 결과
+```java
+s1 변수가 Student 객체를 참조합니다.
+s1 변수가 Student 객체를 참조합니다.
+```
 
+Student 클래스는 하나지만 new 연산자를 사용한 만큼 객체가 메모리에 생성된다. 이러한 객체들은 Student 클래스의 인스턴스들이다. s1과 s2가 참조하는 Student 객체는 완전히 독립된 서로 다른 객체이다.
 
+Student에 main() 메서드를 작성해서 라이브러리인 동시에 실행 클래스로 만들 수도 있다.
 
+```java
+public class Student {
+  public static void main(String[] args) {
+    Student s1 = new Student();
+    System.out.println("s1 변수가 Student 객체를 참조합니다.");
+    
+    Student s2 = new Student();
+    System.out.println("s2 변수가 또 다른 Student 객체를 참조합니다.");
+  }
+}
+```
+대부분의 객체 지향 프로그램은 라이브러리(부품 객체 및 완성 객체)와 실행 클래스가 분리되어 있다.
+</details>
 
+<details markdown="1">
+<summary>6.5 클래스의 구성 멤버</summary>
+
+### 6.5.1 필드
+
+객체의 고유 데이터, 부품 객체, 상태 정보를 저장하는 곳이다. 선언 형태는 변수와 비슷하지만, 필드를 변수라고 부르지 않는다. 변수는 생성자와 메서드 내에서만 사용되고 생성자와 메서드가 실행 종료되면 자동 소멸한다. 하지만 필드는 생성자와 메서드 전체에서 사용되며 객체가 소멸되지 않는 한 객체와 함께 존재한다.
 
 
 
 
 </details>
-
 <details markdown="1">
 <summary>6.10 인스턴스 멤버와 this</summary>
 ### 6.10.3 정적 초기화 블록
