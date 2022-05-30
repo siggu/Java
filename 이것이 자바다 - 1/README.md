@@ -595,7 +595,7 @@ intArray.length = 10; // 잘못된 코드
 
 자바에는 속성과 동작들을 각각 필드(field)와 메서드(method)라고 부른다.
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170723189-7fc96789-5fa5-4554-8043-ad8561f26b6e.png" width="400" height="300"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170723189-7fc96789-5fa5-4554-8043-ad8561f26b6e.png"></p>
 
 ---
 
@@ -626,6 +626,8 @@ intArray.length = 10; // 잘못된 코드
 
 1. **Information Hiding(정보 은닉)** : 나의 상태(속성, 필드)는 나의 행위(동작, 메서드)로만 바꿀 수 있다.(제 3자가 나의 상태(속성)을 바꿀 수 없도록 접근 금지 시키는 것)
    > 나의 상태(속성)를 나의 행위(동작)으로만 바꿀 수 있도록 다른 행위(동작)의 접근을 막는 것
+     
+   > 접근 제한자를 이용해 정보 은닉이 가능하다.
 
 2. **Encapsulation(캡슐화)** : 객체를 캡슐로 싸서 내부를 볼 수 없게 하는 것(어떤 객체가 그 객체를 가질 수밖에 없도록 상태(속성, 필드)와 행위(동작, 메서드)를 묶는 것)
 
@@ -787,6 +789,9 @@ public class Student {
 ### 6.5.3 메서드
 
 메서드는 객체의 동작에 해당하는 중괄호 {} 블록을 말한다. 중괄호 블록은 이름을 가지고 있는데, 이것이 메서드 이름이다. 메서드를 호출하게 되면 중괄호 블록에 있는 모든 코드들이 일괄적으로 실행된다. 메서드는 필드를 읽고 수정하는 역할도 하지만, 다른 객체를 생성해서 다양한 기능을 수행하기도 한다. 메서드는 객체 간의 데이터 전달의 수단으로 사용된다. 외부로부터 매개값을 받을 수도 있고, 실행 후 어떤 값을 리턴할 수도 있다.
+
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170898853-c7543996-3460-4b15-a9eb-315db2755b2f.png"></p>
+
 </details>
 
 <details markdown="1">
@@ -824,10 +829,12 @@ boolean engineStart;
 Car myCar = new Car();
 ```
 
-myCar 변수가 Car 객체를 참조하게 되면, 도트(.) 연산자를 사용해서 speed 필드에 접근할 수 있다. 도트(.) 연산자는 객체 접근 연산자로 객체가 가지고 있는 필드나, 메서들르 사용하고자 할 때 사용된다. 다음 코드는 Car 객체의 speed 필드값을 60으로 변경하고 있다.
+myCar 변수가 Car 객체를 참조하게 되면, 도트(.) 연산자를 사용해서 speed 필드에 접근할 수 있다. 도트(.) 연산자는 객체 접근 연산자로 객체가 가지고 있는 필드나, 메서드를 사용하고자 할 때 사용된다. 다음 코드는 Car 객체의 speed 필드값을 60으로 변경하고 있다.
 
 ```java
+
 myCar.speed = 60;
+
 ```
 
 [ Car.java ] Car 클래스 필드 선언
@@ -840,6 +847,7 @@ public class Car {
   int maxSpeed = 350;
   int speed;
 }
+```
 
 [ CarExample.java ] 외부 클래스에서 Car 필드값 읽기와 변경
 ```java
@@ -861,6 +869,7 @@ public class CarExample {
   }
 }
 ```
+
 실행결과
 ```
 제작회사 : 현대자동차
@@ -872,6 +881,36 @@ public class CarExample {
 ```
 
 Car 클래스는 speed 필드 선언 시 초기값을 주지 않았다. 그러나 출력해보면 기본값이 0이 들어있는 것을 확인할 수 있다.
+
+*예제*
+
+[ Circle.java ] 반지름과 이름을 가진 Circle 클래스를 작성하고, Circle 클래스의 객체를 생성하라.
+```java
+public class Circle {
+  int radius;                                  // 원의 반지름
+  String name;                                 // 원의 이름
+  
+  public double getArea {                      // 메서드
+    return 3.14 * radius * radius;
+  }
+  
+  public static void main(String[] args) {
+    Circle pizza;
+    pizza = new Circle();                      // Circle 객체 생성
+    // Circle pizza = new Circle();            // 한 줄로 선언 가능
+    pizza.radius = 10;
+    pizza.name = "자바피자";
+    double area = pizza.getArea();
+    System.out.println(pizza.name + "의 면적은 : " + area);
+    
+    Circle donut = new Circle();
+    donut.radius = 2;
+    donut.name = "자바도넛";
+    area = donut.getArea();
+    System.out.println(donut.name + "의 면적은 : " + area);
+  }
+}
+```
 </details>
 
 <details markdown="1">
