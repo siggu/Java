@@ -1014,11 +1014,6 @@ public class CarExample {
 
 - 클래스가 메모리로 로딩될 때 선언된 순서대로 실행된다.
 
-
-
-
-
-
 ```java
 public static TelevisionExample {
   public static void main(String args[]) {
@@ -1045,6 +1040,8 @@ public class Television {
 
 ### 6.10.5 싱글톤(Singleton)
 - 하나의 어플리케이션 내에서 단 하나만 생성되는 객체(뒤로 미룸!)
+
+</details>
 
 ## 6.11 final 필드와 상수
 ### 6.11.1 final 필드
@@ -1119,7 +1116,8 @@ p2.printPi();
 
 
 ### 6.12 패키지
-넘어감!(자연스럽게 배우는 내용이라서...)
+디렉터리라고 이해
+
 
 ### 6.13 접근 제한자
 public, protected, 생략("default"라고 부른다), private
@@ -1142,18 +1140,67 @@ class A {      // 이렇게 감싸놓은 것이 캡슐화(관련된 정보를 �
  - public : 다 허용
 
 
+### 6.14 Getter와 Setter 메서드
+
+일반적으로 객체 지향 프로그래밍에서 객체의 데이터는 객체 외부에서 직접적으로 접근하는 것을 막는다.(**정보 은닉**)
+
+객체 지향 프로그래밍에서는 **메서드를 통해서 데이터를 변경**하는 방법을 선호한다.
+
+클래스를 선언할 때 필드(속성)는 반드시 private 접근 제한을 해야한다.
+
+- Getter
+  - 속성값을 읽기 위한 메서드
+  - private 필드의 값을 리턴 하는 역할
 
 
+- Setter
+  - 속성값을 변경하기 위한 메서드
+  - 외부에서 주어진 값을 필드 값으로 수정
 
+> **정보 은닉**을 위해 꼭 필요하다.
 
+### 6.15 어노테이션
 
+- 주석과 같은 의미
 
+</details>
 
+## Chapter 07 상속
 
+<details markdown="1">
+<summary>7.1 상속 개념</summary>
 
+- 현실에서 상속은 부모가 자신에게 물려주는 행위를 말한다.
+- 객체 지향 프로그램에서도 부모 클래스의 **속성(필드)과 행위(메서드)** 를 자식 클래스에게 물려줄 수 있다.
+- 자식 클래스가 가지고 있는 속성과 행위가 더 많다.
+- 재사용과 같은 특징을 가지고 있다.
 
+```java
+public class A {
+  int field1;
+  void method1() { ... }
+}
 
-
+public class B extends A {
+  int field2;
+  void method2() { ... }
+}
+```
+상속을 해도 부모 클래스의 모든 필드와 메서드들을 물려받는 것은 아니다. 부모 클래스에서 private 접근 제한을 갖는 필드와 메서드는 상속 대상에서 제외된다.
 
 
 </details>
+
+<details markdown="1">
+<summary>7.2 클래스 상속</summary>
+
+</details>
+
+오버로딩은 상속과 상관이 없다.
+
+
+
+
+
+
+
