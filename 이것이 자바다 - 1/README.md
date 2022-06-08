@@ -1170,10 +1170,16 @@ class A {      // 이렇게 감싸놓은 것이 캡슐화(관련된 정보를 �
 <details markdown="1">
 <summary>7.1 상속 개념</summary>
 
-- 현실에서 상속은 부모가 자신에게 물려주는 행위를 말한다.
-- 객체 지향 프로그램에서도 부모 클래스의 **속성(필드)과 행위(메서드)** 를 자식 클래스에게 물려줄 수 있다.
-- 자식 클래스가 가지고 있는 속성과 행위가 더 많다.
-- 재사용과 같은 특징을 가지고 있다.
+- 상속의 효과
+  - 현실에서 상속은 부모가 자신에게 물려주는 행위를 말한다.
+  - 객체 지향 프로그램에서도 부모 클래스의 **속성(필드)과 행위(메서드)** 를 자식 클래스에게 물려줄 수 있다.
+  - 자식 클래스가 가지고 있는 속성과 행위가 더 많다.
+  - 재사용과 같은 특징을 가지고 있다.
+  - 객체 다형성 구현 가능
+
+- 상속 대상 제한
+  - 부모 클래스의 private 접근을 갖는 필드와 메서드
+  - 부모 클래스가 다른 패키지에 있을 경우, default 접근을 갖는 필드와 메서드
 
 ```java
 public class A {
@@ -1181,14 +1187,18 @@ public class A {
   void method1() { ... }
 }
 
-public class B extends A {
+public class B extends A {    // extends : 자식 클래스가 상속할 부모 클래스를 지정하는 키워드
   int field2;
   void method2() { ... }
 }
 ```
 상속을 해도 부모 클래스의 모든 필드와 메서드들을 물려받는 것은 아니다. 부모 클래스에서 private 접근 제한을 갖는 필드와 메서드는 상속 대상에서 제외된다.
 
-
+- 자식 객체를 생성하면 부모 객체도 생성되는가?
+  - 자식 객체를 생성(생성자를 호출)할 때는 부모 객체로부터 생성 후 자식 객체를 생성한다.
+  
+- 부모 클래스 = 슈퍼 클래스
+- 자식 클래스 = 서브 클래스
 </details>
 
 <details markdown="1">
@@ -1196,7 +1206,146 @@ public class B extends A {
 
 </details>
 
-오버로딩은 상속과 상관이 없다.
+<details markdown="1">
+<summary>7.3 부모 생성자 호출</summary>
+
+- 명시적인 부모 생성자 호출
+  - 부모 객체를 생성할 때 부모 생성자를 선택해 호출
+
+<p align="center"><img src="https://user-images.githubusercontent.com/106001755/172541577-55069f04-7144-4467-871e-6b36fe868e3e.png"></p>
+
+  - **반드시 자식 생성자의 첫 줄에 위치**
+  - 부모 클래스에 기본(매개변수가 없는) 생성자가 없다면 필수로 작성해야 한다.
+
+</details>
+
+<details markdown="1">
+<summary>7.4 메서드 재정의(Override)</summary>
+
+- 메서드 재정의(@Override)
+  - 부모 클래스의 상속 메서드를 수정해 자식 클래스에서 재정의하는 것
+  
+  - 메서드 재정의 조건
+    - 부모 클래스의 메서드와 동일한 시그니쳐를 가저야한다.
+
+    - 접근 제한을 더 강하게 오버라이딩 불가
+      - public을 default나 private로 수정 불가
+      - 반대로 default는 public으로 수정 가능
+
+```java
+class B {
+  public void M() {
+    System.out.println("부모");
+  }
+}
+class A extends B {
+
+}
+public class MainApp {
+  public stataic void main(String[] args) {
+    A objA = new A();
+    objA.M();
+  }  
+} 
+``` 
+출력 결과 : 부모
+ 
+```java
+class B {
+  public void M() {
+    System.out.println("부모");
+  }
+}
+class A extends B {
+  public void M() {                 // 이때 M()은 부모에게 상속받은 것이다.
+    System.out.println("자식");     // 자식 클래스에서 M()을 재정의 할 수 있다.(Override)
+}
+public class MainApp {
+  public stataic void main(String[] args) {
+    A objA = new A();
+    objA.M();
+  }
+} 
+``` 
+
+출력 결과 : 자식
+
+```java
+class B {
+  */public void M() {
+    System.out.println("부모");
+  }*/
+}
+class A extends B {
+  public void M(String s) {
+    System.out.println("자식");
+}
+public class MainApp {
+  public stataic void main(String[] args) {
+    A objA = new A();
+    objA.M("나");
+  }  
+} 
+```
+출력 결과 : 자식(B에게서 상속받지 않았다.)
+
+```java
+class B {
+  public void M() {
+    System.out.println("부모");
+  }
+}
+class A extends B {
+  public void M(String s) {
+    System.out.println("자식");
+}
+public class MainApp {
+  public stataic void main(String[] args) {
+    A objA = new A();
+    objA.M("나");
+  }  
+} 
+```
+
+출력 결과 : 자식(이때, class A의 M()은 class B의 M(String s)와 전혀 다른 것이다. 따라서 둘은 상속 관계도 중복정의도 아니다(다른 클래스이기 때문)
+
+- 중복정의(Overloading) -> **한 클래스 안에서** 메서드 이름 동일 + **매개변수의 순서, 개수, 타입이 달라야 한다.**
+  >  프로토타입(public void M())는 동일, 시그니쳐(M()) 안은 달라야 한다.(책 보고 다시 작성)
+
+- 재정의(Overriding) ->
+
+- Override 어노테이션
+  - 컴파일러에게 부모 클래스의 메서드 선언부와 동일한지 검사 지시
+
+- 메서드 재정의 효과  
+  : 부모 메서드는 숨겨지는 효과 발생
+  : 재정의된 자식 메서드 실행
+  
+- 부모 메서드 사용(super)
+  - 메서드 재정의는 부모 메서드를 숨기는 효과가 있다.
+    - 자식 클래스에서는 재정의된 메서드만 호출한다.
+
+  - 자식 클래스에서 수정되기 전 부모 메서드 호출 -> super 사용
+    - super는 부모 객체 참조(this는 자신 객체 참조)
+
+<p align="center"><img src="https://user-images.githubusercontent.com/106001755/172549270-4a27bb2b-8951-481c-82cc-5ab0e80429d7.png></p>
+
+</details>
+
+final 클래스와 final 메서드 (여기까지 시ㅓㅁ범위)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
