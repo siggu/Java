@@ -1328,13 +1328,55 @@ public class MainApp {
   - 자식 클래스에서 수정되기 전 부모 메서드 호출 -> super 사용
     - super는 부모 객체 참조(this는 자신 객체 참조)
 
-<p align="center"><img src="https://user-images.githubusercontent.com/106001755/172549270-4a27bb2b-8951-481c-82cc-5ab0e80429d7.png></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/106001755/172549270-4a27bb2b-8951-481c-82cc-5ab0e80429d7.png"></p>
 
 </details>
 
-final 클래스와 final 메서드 (여기까지 시ㅓㅁ범위)
+<details markdown="1">
+<summary>7.5 final 클래스와 final 메서드</summary>
+ 
+- final 키워드는 클래스, 필드, 메서드 선언 시에 사용할 수 있다. final 키워드는 해당 선언이 최종 상태이고, 결코 수정될 수 없음을 뜻한다. 클래스와 메서드 선언 시에 final 키워드가 지정되면 상속과 관련이 있다.
 
+### 7.5.1 상속할 수 없는 final 
 
+- 클래스를 선언할 때 final 키워드를 class 앞에 붙이게 되면 이 클래스는 최종적인 클래스이므로 상속할 수 없는 클래스가 된다. 즉 final 클래스는 부모 클래스가 될 수 없어 자식 클래스를 만들 수 없다.
+
+### 7.5.2 오버라이딩할 수 없는 final 메서드
+
+- 메서드를 선언할 때 final 키워드를 붙이게 되면 이 메서드는 최종적인 메서드이므로 오버라이딩할 수 없는 메서드가 된다. 즉 부모 클래스를 상속해서 자식 클래스를 선언할 때 부모 클래스에 선언된 final 메서드는 자식 클래스에서 재정의할 수 없다는 것이다.
+
+[ Car.java ] 재정의할 수 없는 final 메서드
+```java
+public class Car {
+  // 필드
+  public int speed;
+  
+  // 메서드
+  public void speedUp() { speed = 1; }
+  
+  // final 메서드
+  public final void stop() {
+    System.out.println("차를 멈춤");
+    speed = 0;
+  }
+}
+```
+
+[ SportsCar.java ] 재정의할 수 없는 final 메서드
+```java
+public class SportsCar extends Car {
+  @Override
+  public void speedUp() { speed += 10; }
+  
+  // 오버라이딩을 할 수 없음
+  @Override
+  pyublic void stop() {
+    System.out.println("스포츠카를 멈춤");
+    speed = 0;
+  }
+}
+```
+</details>
 
 
 
