@@ -2,6 +2,7 @@
  - [Chapter 01 자바 시작하기](#Chapter-01-자바-시작하기)
  - [Chapter 05 참조 타입](#Chapter-05-참조-타입)
  - [Chapter 06 클래스](#Chapter-06-클래스)
+ - [Chapter 07 상속](#Chapter-07-상속)
  
 ## Chapter 01 자바 시작하기 
 
@@ -2099,9 +2100,325 @@ public class SportsCar extends Car {
 ```
 </details>
 
+# 연습문제
 
+<details markdown="1">
+<summary>6장 연습문제</summary>
 
+1. 객체와 클래스에 대한 설명으로 틀린 것은?
 
+    (1) 클래스는 객체를 생성하기 위한 설계도(청사진)과 같은 것이다.
+  
+    (2) new 연산자로 클래스의 생성자를 호출하므로서 객체가 생성된다.
+  
+    (3) 하나의 클래스로 하나의 객체만 생성할 수 있다.
+  
+    (4) 객체는 클래스의 인스턴스이다.
+    
+<details markdown="1">
+<summary>1번 정답</summary>
+3. new 연산자를 호출하여 객체를 생성하는데, new 연산자를 여러 개 호출하면 여러 개의 객체를 생성할 수 있다.
+</details>
 
+2. 클래스의 구성 멤버가 아닌 것은?
+    
+    (1) 필드(field)
+    
+    (2) 생성자(constructor)
+    
+    (3) 메서드(method)
+    
+    (4) 로컬변수(local variable)
 
+<details markdown="1">
+<summary>2번 정답</summary>
+4. 생성자와 메서드에서 사용된 변수이므로 아님
+</details>
 
+3. 필드, 생성자, 메서드에 대한 설명으로 틀린 것은?
+
+    (1) 필드는 객체의 데이터를 저장한다.
+    
+    (2) 생성자는 객체의 초기화를 담당한다.
+    
+    (3) 메서드는 객체의 동작 부분으로, 실행 코드를 가지고 있는 블록이다.
+    
+    (4) 클래스는 반드시 필드와 메서드를 가져야 한다.
+
+<details markdown="1">
+<summary>3번 정답</summary>
+4. 반드시 가질 필요는 없다.
+</details>
+
+4. 필드에 대한 설명으로 틀린 것은?
+
+    (1) 필드는 메서드에서 사용할 수 있다.
+    
+    (2) 인스턴스 필드 초기화는 생성자에서 할 수 있다.
+    
+    (3) 필드는 반드시 생성자 선언 전에 선언되어야 한다.
+    
+    (4) 필드는 초기값을 주지 않더라고 기본값으로 자동 초기화된다.
+    
+<details markdown="1">
+<summary>4번 정답</summary>
+3. 블록 내에서 순서 상관 없이 선언할 수 있다.
+
+```java
+class 클래스 {
+  int 필드1;
+  
+  생성자 { ... }
+  
+  int 필드2;
+}
+```
+</details>
+
+5. 생성자에 대한 설명으로 틀린 것은?
+
+    (1) 객체를 생성하려면 생성자 호출이 반드시 필요한 것은 아니다.
+    
+    (2) 생성자는 다른 생성자를 호출하기 위해 this()를 사용할 수 있다.
+    
+    (3) 생성자가 선언되지 않으면 컴파일러가 기본 생성자를 추가한다.
+    
+    (4) 외부에서 객체를 생성할 수 없도록 생성자에 private 접근 제한자를 붙일 수 있다.
+
+<details markdown="1">
+<summary>5번 정답</summary>
+1. 객체를 생성하려면 무조건 생성자 호출이 필요하다.
+</details>
+
+6. 메서드에 대한 설명으로 틀린 것은?
+
+    (1) 리턴값이 있는 메서드는 리턴타입을 void로 해야 한다.
+    
+    (2) 리턴타입이 있는 메서드는 리턴값을 지정하기 위해 반드시 return 문이 있어야한다.
+    
+    (3) 매개값의 수를 모를 경우 "..."를 이용해서 매개변수를 선언할 수 있다.
+    
+    (4) 메서드의 이름은 중복해서 선언할 수 없다.
+    
+<details markdown="1">
+<summary>6번 정답</summary>
+4. 메서드의 이름은 중복해서 선언할 수 있다.(단 매개변수의 수, 타입, 순서를 다르게 해야 한다 = 메서드 오버로딩)
+</details>
+
+7. 메서드 오버로딩에 대한 설명으로 틀린 것은?
+
+    (1) 동일한 이름의 메서드를 여러 개 선언하는 것을 말한다.
+    
+    (2) 반드시 리턴타입이 달라야 한다.
+    
+    (3) 매개변수의 타입, 수, 순서를 다르게 선언해야 한다.
+    
+    (4) 매개값의 타입 및 수에 따라 호출될 메서드가 선택된다.
+
+<details markdown="1">
+<summary>7번 정답</summary>
+2. 반드시 리턴타입이 달라야 하는 것은 아니다.(리턴타입과 상관이 없다.)
+</details>
+
+8. 인스턴스 멤버와 정적 멤버에 대한 설명으로 틀린 것은?
+
+    (1) 정적 멤버는 static으로 선언된 필드와 메서드를 말한다.
+    
+    (2) 인스턴스 필드는 생성자 및 정적 블록에서 초기화될 수 있다.
+    
+    (3) 정적 필드와 정적 메서드는 객체 생성없이 클래스를 통해 접근할 수 있다.
+    
+    (4) 인스턴스 필드와 메서드는 객체를 생성하고 사용해야 한다.
+    
+<details markdown="1">
+<summary>8번 정답</summary>
+2. 인스턴스 필드는 객체 안에 있는 필드이기 때문에, 객체 없이는 사용할 수 없다. 따라서 생성자(객체를 만듦) 안에서는 사용할 수 있지만, 정적 블록(클래스가 로딩될 때 자동으로 실행됨)에서는 사용할 수 없다.
+</details>
+
+9. final 필드와 상수(static final)에 대한 설명으로 틀린 것은?
+
+    (1) final 필드와 상수는 초기값이 저장되면 값을 변경할 수 없다.
+    
+    (2) final 필드와 상수는 생성자에서 초기화 될 수 있다.
+    
+    (3) 상수의 이름은 대문자로 작성하는 것이 관례이다.
+    
+    (4) 상수는 객체 생성없이 클래스를 통해 사용할 수 있다.
+    
+<details markdown="1">
+<summary>9번 정답</summary>
+2. 상수는 생성자에서 초기화 될 수 없다. static final field이기 때문에 상수를 선언할 때 값을 주던지 정적 블록에서 초기화를 해야 한다. 객체를 만들 때 초기화를 한다는 의미이기 때문에 상수는 객체를 생성하기 전에 완성이 되어있어야 한다. 단순한 final 필드는 생성자로 초기화될 수 있다.
+</details>
+
+10. 접근 제한에 대한 설명으로 틀린 것은?
+
+    (1) 접근 제한자는 클래스, 필드, 생성자, 메서드의 사용을 제한한다.
+    
+    (2) public 접근 제한은 아무런 제한 없이 해당 요소를 사용할 수 있게 한다.
+    
+    (3) default 접근 제한은 해당 클래스 내부에서만 사용을 허가한다.
+    
+    (4) 외부에서 접근을 하지 못하도록 하려면 private 접근 제한을 해야 한다.
+
+<details markdown="1">
+<summary>10번 정답</summary>
+3. 해당 클래스 내부에서만 사용을 허가하는 접근 제한자는 private이다.
+</details>
+
+11. 다음 클래스에서 해당 멤버가 필드, 생성자, 메서드 중 어떤 것인지 괄호 안을 채우시오.
+
+```java
+public class Member {
+  private String name;                                // 1.
+  
+  public Member(String name) { ... }                  // 2.
+  
+  public void setName(String name) { ... }            // 3.
+}
+```
+
+<details markdown="1">
+<summary>11번 정답</summary>
+
+1. 필드
+
+2. 생성자
+
+3. 메서드
+</details>
+
+12. 현실 세계의 회원을 Member 클래스로 모델링하려고 한다. 회원의 데이터로는 이름, 아이디, 패스워드, 나이가 있다. 이 데이터들을 가지는 Member 클래스를 선언하라.
+|데이터 이름|필드 이름|타입|
+|:---:|:---:|:---:|
+|이름|name|문자열|
+|아이디|id|문자열|
+|패스워드|password|문자열|
+|나이|age|정수|
+
+[ Member.java ]
+
+```java
+public class Member {
+  // 작성 위치
+}
+```
+
+<details markdown="1">
+<summary>12번 정답</summary>
+
+```java
+public class Member {
+  String name; 
+  String id;
+  String password;
+  int age;
+}
+```
+</details>
+
+13. 위에서 작성한 Member 클래스에 생성자를 추가하려고 한다. 다음과 같이 Member 객체를 생성할 때 name 필드와 id 필드를 외부에서 받은 값으로 초기화하려면 생성자를 어떻게 선언해야 하는가?
+
+```
+Member user1 = new Member("홍길동", "hong");
+Member user2 = new Member("강자바", "java");
+```
+
+[ Member.java ]
+
+```java
+public class Member {
+  // 작성 위치
+}
+```
+
+<details markdown="1">
+<summary>13번 정답</summary>
+
+```java
+public class Member {
+  String name; 
+  String id;
+  String password;
+  int age;
+  
+  Member(String name, String id) {
+    this.name = name;
+    this.id = id;
+  }
+}
+```
+</details>
+
+14. MemberService 클래스에 login() 메서드와 logout() 메서드를 선언하려고 한다. login() 메서드를 호출할 때에는 매개값으로 id와 password를 제공하고, logout() 메서드는 id만 매개값으로 제공한다. MemberService 클래스와 Login(), logout() 메서드를 선언해라.
+
+(1) login() 메서드는 매개값 id가 "hong", 매개값 password가 "12345"일 경우에만 true로 리턴하고 그 이외의 값일 경우에는 false를 리턴하도록 해라.
+
+(2) logout() 메서드의 내용은 "로그아웃 되었습니다."가 출력되도록 해라.
+
+|리턴 타입|메서드 이름|매개 변수(타입)|
+|:---:|:---:|:---:|
+|boolean|login|id(String), password(String)|
+|void|logout|id(String)|
+
+[ MemberService.java ]
+
+```java
+public class MemberService {
+  // 작성 위치
+}
+```
+
+[ MemberServiceExample.java ]
+
+```java
+public class MemberServiceExample {
+  public static void main(String[] args) {
+    MemberService memberService = new Memberservice();
+    boolean result = memberService.login("hong", "12345");
+    if(result) {
+      System.out.println("로그인 되었습니다.");
+      memberService.logout("hong");
+    } else {
+      System.out.println("id 또는 password가 올바르지 않습니다.");
+    }
+  }
+}
+```
+
+<details markdown="1">
+<summary>14번 정답</summary>
+
+[ MemberService.java ]
+```java
+public class MemberService {
+  boolean login(String id, String password) {
+    if(id.equals("hong") && password.equals("12345")) {
+      return true
+    } else {
+        return false;
+    }
+  }
+  void logout(String id) {
+    System.out.println("로그아웃 되었습니다.");
+  }
+}
+```
+
+[ MemberServiceExample.java ]
+```java
+public class MeemberServiceExample {
+  public static void main(String[] args) {
+    MemberService memberService = new MemberService();
+    
+    boolean result = memberService.login("hong","12345");
+    
+    if(result) {
+      System.out.println("로그인 되었습니다.");
+      memberService.logout("hong");
+    } else {
+        System.out.println("id 또는 password가 올바르지 않습니다.");
+    }
+  }
+}
+```
+</details>
