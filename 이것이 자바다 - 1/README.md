@@ -992,14 +992,692 @@ public class CarExample {
 
 ### 6.7.3 필드 초기화
 
+- 클래스로부터 객체가 생성될 대 필드는 기본 초기값으로 자동 설정된다. 만약 다른 값으로 초기화를 하고 싶다면 두 가지 방법이 있다.
+- 하나는 필드를 선언할 때 초기값을 주는 방법이고, 또 다른 하나는 생성자에서 초기값을 주는 방법이다.
+- 필드를 선언할 때 초기값을 주게 되면 동일한 클래스로부터 생성되는 객체들은 모두 같은 데이터를 갖게 된다.
 
+예를 들어 다음과 같이 Korean 클래스에 nation 필드를 선언하면서 "대한민국"으로 초기값을 준 경우, Korean 클래스로부터 k1과 k2 객체를 생성하면 각각 객채의 nation 필드에는 모두 "대한민국"이 저장되어 있다.
 
+```java
+public class Korean {
+  String nation = "대한민국"
+  String name;
+  String ssn;
+}
 
+Korean k1 = new Korean();
+Korean k2 = new Korean();
+```
 
+하지만 객체 생성 시점에 외부에서 제공되는 다양한 값들로 초기화되어야 한다면 생성자에서 초기화를 해야 한다. 위 코드에서 name과 ssn 필드값은 클래스를 작성할 때 초기값을 줄 수 없고 객체 생성 시점에 다양한 값을 가져야 한다. 따라서 생성자의 매개값으로 이 값들을 받아 초기화하는 것이 맞다.
 
+```java
+public class Korean {
+  // 필드
+  String nation = "대한민국"
+  String name;
+  String ssn;
+  
+  // 생성자
+  public Korean(String n, String s) {
+    name = n;
+    ssm = s;
+  }
+}
+```
+
+아래 코드에서 "박자바", "김자바"는 매개 변수 n을 통해 전달되고, "011225-1234567", "930525-0654321"은 매겨 변수 s를 통해 전달된다. 이 값들은 각각 name 필드와 ssn 필드의 초기값으로 사용된다.
+
+```java
+Korean k1 = new Korean("박자바", "011225-1234567");
+Korean k2 = new Korean("김자바", "930525-0654321");
+```
+
+[ Korean.java ] 생성자에서 필드 초기화
+```java
+public class Korean {
+  // 필드
+  String nation = "대한민국";
+  String name;
+  String ssn;
+  
+  // 생성자
+  public Korean(String n, String s) {
+    name = n;
+    ssn = s;
+  }
+}
+```
+
+[ KoreanExample.java ] 객체 생성 후 필드값 출력
+```java
+public class KoreanExample {
+  public static void main(String[] args) {
+    Korean k1 = new Korean("박자바", "011225-1234567");
+    System.out.println("k1.name : " + k1.name);
+    system.out.println("k1.ssn : " + k1.ssn);
+    
+    Korean k2 = new Korean("김자바", "930525-0654321");
+    System.out.println("k2.name : " + k2.name);
+    System.out.println("k2.ssn : " + k2.ssn);
+  }
+}
+```
+출력결과
+```
+k1.name : 박자바
+k1.ssn : 011225-1234567
+k2.name : 김자바
+k2.ssn : 930525-0654321
+```
+
+Korean 생성자의 매개 변수 이름은 각각 n과 s를 사용했다. 관례적으로 필드와 동일한 이름을 갖는 매개 변수를 사용한다. 이 경우 필드와 매개 변수 이름이 동일하기 때문에 생성자 내부에서 해당 필드에 접근할 수 없다. 왜냐하면 동일한 이름의 매개 변수가 사용 우선순위가 높기 때문이다. 해결 방법은 필드 앞에 "this."를 붙이면 된다. this는 객체 자신의 참조이다. this를 사용하여 Korean 생성자를 수정하면 다음과 같다.
+
+```java
+public Korean(String name, String ssn) {
+  this.name = name;
+  
+  this.ssn = ssn;
+}
+```
+
+---
+
+### 6.7.4 생성자 오버로딩(Overloading)
+- 생성자 오버로딩이란 매개 변수를 달리하는 생성자를 여러 개 선언하는 것을 말한다.
+
+다음은 Car 클래스에서 생성자를 오버로딩한 예를 보여준다.
+
+```java
+public class Car {
+  Car() { ... }
+  Car(String model) { ... }
+  Car(String model, String color) { ... }
+  Car(String model, String color, int maxSpeed) { ... }
+```
+
+생성자 오버로딩 시 주의할 점은 **매개 변수의 타입의 개수 그리고 선언된 순서가 똑같을 경우 매개 변수 이름만 바꾸는 것은 생성자 오버로딩이라고 볼 수 없다.** 다음과 같은 경우에 해당한다.
+
+```java
+Car(String model, String color) { ... }
+Car(String color, String model) { ... }  // 오버로딩이 아님
+```
+
+생성자가 오버로딩되어 있을 경우, new 연산자로 생성자를 호출할 때 제공되는 매개값의 타입과 수에 의해 호출될 생성자가 결정된다. 다음은 다양한 방법으로 Car 객체를 생성한다.
+
+```java
+Car car1 = new Car();
+Car car2 = new Car("그랜저");
+Car car3 = new Car("그랜저", "흰색");
+Car car4 = new Car("그랜저", "흰색", "300");
+```
+
+다음 예제는 Car 생성자를 오버로딩해서 CarExample 클래스에서 다양한 방법으로 Car 객체를 생성하도록 했다.
+
+[ Car. java ] 생성자의 오버로딩
+```java
+public class Car {
+  // 필드
+  String company = "현대 자동차";
+  String model;
+  String color;
+  int maxSpeed;
+  
+  // 생성자
+  Car() {
+  }
+  
+  Car(String model) {
+    this.model = model;
+  }
+  
+  Car(String model, String color) {
+    this.model = model;
+    this.color = color;
+  }
+  
+  Car(String model, String color, int maxSpeed) {
+    this.model = model;
+    this.color = color;
+    this.maxSpeed = maxSpeed;
+  }
+}
+```
+
+[ CarExample.java ] 객체 생성 시 생성자 선택
+```java
+public class CarExmaple {
+  public static void main(String[] args) {
+    Car car1 = new Car();
+    System.out.println("car1.company : " + car1.company);
+    System.out.println();
+    
+    Car car2 = new Car();
+    System.out.println("car2.company : " + car2.company);
+    System.out.println("car2.model : " + car2.model);
+    System.out.println();
+    
+    Car car3 = new Car();
+    System.out.println("car3.company : " + car3.company);
+    System.out.println("car3.model : " + car3.model);
+    System.out.println("car3.color : " + car3.color);
+    
+    Car car4 = new Car();
+    System.out.println("car4.company : " + car4.company);
+    System.out.println("car4.model : " + car4.model);
+    System.out.println("car4.color : " + car4.color);
+    System.out.println("car4.maxSpeed : " + car4.maxSpeed);
+  }
+}
+```
+
+출력 결과
+```java
+car1.company : 현대자동차
+
+car2.company : 현대자동차
+car2.model : 자가용
+
+car3.company : 현대자동차
+car3.model : 자가용
+car3.color : 빨강
+
+car4.company : 현대자동차
+car4.model : 자가용
+car4.color : 빨강
+car4.maxSpeed : 200
+```
+
+---
+
+### 6.7.5 다른 생성자 호출(this())
+- 생성자 오버로딩이 많아질 경우 생성자 간의 중복된 코드가 발생할 수 있다. 매개 변수의 수만 달리하고 필드 초기화 내용이 비슷한 생성자에서 이러한 현상을 많이 볼 수 있다.
+- 이 경우에는 필드 초기화 내용은 한 생성자에만 집중적으로 작성하고 나머지 생성자는 초기화 내용을 가지고 있는 생성자를 호출하는 방법으로 개선할 수 있다.
+- 생성자에서 다른 생성자를 호출할 때에는 this() 코드를 사용한다.
+
+```java
+클래스( [매개변수선언, ...] ) {
+  this( 매개변수, ..., 값, ... );
+  실행문;
+}
+```
+
+this()는 자신의 다른 생성자를 호출하는 코드로 반드시 **생성자의 첫줄에서만 허용한다.** this()의 매개값은 호출되는 생성자의 매개 변수 타입에 맞게 제공해야 한다. this() 다음에는 추가적인 실행문들이 올 수 있다. 이 말은 호출되는 생성자의 실행이 끝나면 원래 생성자로 돌아와서 다음 실행문을 진행한다는 뜻이다. 
+
+[ Car.java ] 다른 생성자를 호출해서 중복 코드 줄이기
+```java
+public class Car {
+  // 필드
+  String company = "현대자동차";
+  String model;
+  String color;
+  int maxSpeed;
+  
+  // 생성자
+  Car() {
+  }
+  
+  Car(String model) {
+    this(model, "은색", 250);
+  }
+  
+  Car(String model, String color) {
+    this(model, color, 250);
+  }
+  
+  Car(String model, String color, int maxSpeed) {
+    this.model = model;
+    this.color = color;
+    this.maxSpeed = maxSpeed;
+  }
+}
+```
+
+[ CarExample.java ] 객체 생성 시 생성자 선택
+```java
+public class CarExample {
+  public static void main(Stirng[] args) {
+    Car car1 = new Car();
+    System.out.println("car1.company : " + car1.company);
+    System.out.pritnln();
+    
+    Car car2 = new Car();
+    System.out.println("car2.company : " + car2.company);
+    System.out.println("car2.model : " + car2.model);
+    System.out.println();
+    
+    Car car3 = new Car();
+    System.out.println("car3.company : " + car3.company);
+    System.out.println("car3.model : " + car3.model);
+    System.out.println("car3.color : " + car3.color);
+    System.out.println();
+    
+    Car car4 = new Car();
+    System.out.println("car4.company : " + car4.company);
+    System.out.println("car4.model : " + car4.model);
+    System.out.println("car4.color : " + car4.color);
+    System.out.println("car4.maxSpeed : " + car4.maxSpeed);
+  }
+}
+```
+</details>
 
 <details markdown="1">
-<summary>6.10 인스턴스 멤버와 this</summary>
+<summary>6.8 메서드</summary>
+
+- 메서드는 객체의 동작에 해당하는 중괄호 {} 블록을 말한다. 증괄호 블록의 이름이 메서드의 이름이다. 메서들르 호출하게 되면 중괄호 블록에 있는 모든 코드들이 일괄적으로 실행된다. 메서드는 필드를 읽고 수정하는 역할도 하지만, 다른 객체를 생성해서 다양한 기능을 수행하기도 한다.
+- 메서드는 객체 간의 데이터 전달의 수단으로 사용된다. 외부로부터 매개값을 받을 수도 있고, 실행 후 어떤 값을 리턴할 수도 있다.
+
+### 6.8.1 메서드 선언
+
+- 메서드 선언은 선언부(리턴타입, 메서드이름, 매개변수선언)와 실행 블록으로 구성된다. 메서드 선언부를 메서드 시그니처(signature)라고도 한다.
+
+**리턴 타입**
+
+- 리턴 타입은 메서드가 실행 후 리턴하는 값의 타입을 말한다.
+- 메서드는 리턴값이 있을 수도 있고 없을 수도 있다.
+- 메서드가 실행 후 결과를 호출할 곳에 넘겨줄 경우에는 리턴값이 있어야 한다.
+
+예를 들어 전자계산기 객체에서 전원을 켜는 powerOn() 메서드와 두 수를 나누는 기능인 divide() 메서드가 있다고 가정해보자. divide() 메서드는 나눗셈의 결과를 리턴해야 하지만 powerOn() 메서드는 전원만 켜면 그만이다. 따라서 powerOn() 메서드는 리턴값이 없고, divide() 메서드는 리턴값이 있어야 한다고 봐야 한다. 리턴값이 없는 메서드는 리턴 타입에 void가 와야 하며 리턴값이 있는 메서드는 리턴값의 타입이 와야 한다. divide() 메서드의 결과가 double 값이라면 double을 리턴 타입으로 사용해야 한다.
+
+```java
+void powerOn() { ... }
+double divide(int x, int y) { ... }
+```
+
+리턴값이 있느냐 없느냐에 따라 메서드를 호출하는 방법이 조금 다르다. 위의 두 메서드는 다음과 같이 호출할 수 있다.
+
+```java
+powerOn();
+double result = divide(10, 20);
+```
+
+powerOn() 메서드는 리턴값이 없기 때문에 변수에 저장할 내용이 없다. 단순히 메서드만 호출하면 된다. 그러나 divide() 메서드는 10을 20으로 나눈 후 0.5를 리턴하므로 이것을 저장할 변수가 있어야 한다. 리턴값을 받기 위해 변수는 메서드의 리턴 타입인 double 타입으로 선언되어야 한다.
+
+만약 result 변수를 int 타입으로 선언하게 되면 double 값을 저장할 수 없기 때문에 컴파일 에러가 발생한다.
+
+```java
+int result = divide(10, 20); // 컴파일 에러
+```
+
+리턴 타입이 있다고 해서 반드시 리턴값을 변수에 저장할 필요는 없다. 리턴값이 중요하지 않고, 메서드 실행이 중요한 경우에는 다음과 같이 변수 선언 없이 메서드를 호출할 수도 있다.
+
+```java
+divide(10, 20);
+```
+
+**메서드 이름**
+
+메서드 이름은 자바 식별자 규칙에 맞게 작성하면 된다.
+
+- 숫자로 시작하면 안되고, $와 _를 제외한 특수 문자를 사용하지 말아야 한다.
+- 관례적으로 메서드명은 소문자로 작성한다.
+- 서로 다른 단어가 혼합된 이름이라면 뒤이어 오는 단어의 첫머리 글자는 대문자로 작성한다.
+
+다음은 잘 작성된 메서드 이름을 보여준다.
+
+```java
+void run() { ... }
+void startEngine() { ... }
+Stirng getName() { ... }
+int[] getscores() { ... }
+```
+
+**매개 변수 선언**
+
+매개 변수는 메서드가 실행할 때 필요한 데이터를 외부로부터 받기 위해 사용된다. 매개 변수도 필요한 경우가 있고 필요 없는 경우가 있다. 예를 들어 powerOn() 메서드는 그냥 전원만 켜면 그만이지만, divide() 메서드는 나눗셈을 할 두 수가 필요하다. 따라서 powerOn() 메서드는 매개 변수가 필요 없고, divde() 메서드는 매개 변수가 두 개 필요하다. 다음은 매개 변수가 있는 divide() 메서드 선언 예를 보여준다.
+
+```java
+double divide(int x, int y) { ... }
+```
+
+이렇게 선언된 divide() 메서드를 호출할 때에는 반드시 두 개의 int 값을 주어야 한다.
+
+```java
+double result = divide(10, 20);
+```
+
+호출 시 넘겨준 매개값인 10과 20은 해당 위치의 매개 변수인 x와 y에 각각 저장되고, 이 매개 변수들을 이용해서 메서드 블록을 실행하게 된다. 매개값은 반드시 매개 변수의 타입에 부합되는 값이어야 한다. divide() 메서드가 int 타입 매개 변수를 가지고 있다면 호출 시 매개값으로 int 값이나 int 타입으로 변환될 수 있는 값을 넘겨주어야 한다. 다음은 잘못된 매개값을 사용하여 컴파일 오류가 발생한다.
+
+```java
+double result = divide(10.5, 20.0);
+```
+
+10.5와 20.0은 double 값이므로 int 타입으로 변환될 수 없다. 하지만 다음 코드는 컴파일 오류가 발생하지 않고 정상적으로 실행된다. 매개값의 타입과 매개 변수의 타입이 달라도 자동 타입 변환이 되는 경우는 컴파일 오류가 생기지 않는다.
+
+```java
+byte b1 = 10;
+byte b2 = 20;
+double result = divide(b1, b2);
+```
+
+다음은 Calculator 클래스에서 powerOn(), plus(), divide(), powerOff() 메서드를 선언한 것이다.
+
+[ Calculator.java ] 메서드 선언
+```java
+public class Calculator {
+  
+  // 메서드
+  void powerOn() {
+    System.out.println("전원을 켭니다.");
+  }
+  
+  int plus(int x, int y) {
+    int result = x + y;
+    return result;
+  }
+  
+  double divide(int x, int y) {
+    double result = (double)x / (double)y;
+    return result;
+  }
+  
+  void powerOff() {
+    System.out.println("전원을 끕니다.");
+  }
+}
+```
+
+---
+
+### 6.8.2 리턴(return)문
+
+- 메서드 실행을 중지하고 리턴값을 지정하는 역할을 한다.
+
+**리턴값이 있는 메서드**
+
+- 반드시 리턴문을 사용해 리턴값을 지정해야 한다.
+
+```java
+int plus(int x, int y) {
+  int result = x + y;
+  return result;
+}
+```
+
+- return 문 뒤에 실행문은 올 수 없다.(조건식의 경우에는 조건에 따라 실행문을 작성할 수 있다.)
+
+**리턴값이 없는 메서드**
+
+- 메서드 실행을 강제 종료 시키는 역할을 한다.
+
+---
+
+### 6.8.3 메서드 호출
+
+- 메서드는 클래스 내,외부의 호출에 의해 실행된다.
+  - 클래스 내부 : 메서드 이름으로 호출
+  - 클래스 외부 : 객체 생성 후, 참조 변수를 이용해 호출
+
+**객체 내부에서 호출**
+
+[ Calculator.java ] 클래스 내부에서 메서드 호출
+```java
+public class Calculator {
+  int plus(int x, int y) {
+    int result = x + y;
+    return result;
+  }
+  
+  double avg(int x, int y) {
+    double sum = plus(x, y);  // 2. Calculator 클래스의 plus 메서드 호출
+    double result = sum / 2;
+    return result;
+  }
+  
+  void execute() {
+    doubel result = avg(7, 10);  // 1. double avg(int x, int y) 호출 
+    println("실행결과 : " + result);  // 3. println(String message) 호출
+  }
+  
+  void pritnln(String message) {
+    System.out.println(message);
+  }
+}
+```
+
+**객체 외부에서 호출**
+
+[ Car.java ] 클래스 외부에서 메서드 호출
+```java
+public class Car {
+  
+  // 필드
+  int speed;
+  
+  // 생성자
+  
+  // 메서드
+  int getSpeed() {
+    return speed;
+  }
+  
+  void keyTrunOn() {
+    System.out.println("키를 돌립니다.");
+  }
+  
+  void run() {
+    for(int i=10; i<=50; i+=10) {
+      speed = i;
+      System.out.println("달립니다.(시속 : " + speed + "km/h)");
+    }
+  }
+}
+```
+
+[ CarExample.java ] 클래스 외부에서 메서드 호출
+```java
+public class CarExample {
+  public static void main(String[] args) {
+    Car myCar = new Car();
+    myCar.keyTrunOn();
+    myCar.run();
+    int speed = myCar.getSpeed();
+    System.out.println("현재 속도 : " + speed + "km/h");
+  }
+}
+```
+
+출력 결과
+```java
+키를 돌립니다.
+달립니다.(시속 : 10km/h)
+달립니다.(시속 : 20km/h)
+달립니다.(시속 : 30km/h)
+달립니다.(시속 : 40km/h)
+달립니다.(시속 : 50km/h)
+현재 속도 : 50km/h
+```
+
+---
+
+### 6.8.4 메서드 오버로딩
+
+- 클래스 내에 같은 이름의 메서드를 여러 개 선언하는 것이다.
+- 하나의 메서드 이름으로 다양한 매개값을 받기 위해 메서드 오버로딩을 한다.
+- **오버로딩의 조건 : 매개변수의 타입, 개수, 순서가 달라야 한다.**
+
+[ Calculator.java ] 메서드 오버로딩
+```java
+public class Calculator {
+  // 정사각형의 넓이
+  double areaRectangle(double width) {
+    return width * width;
+  }
+  
+  // 직사각형의 넓이
+  doube areaRectangle(double width, double height) {
+    return width * height;
+  }
+}
+```
+
+[ CalculatorExample.java ] 메서드 오버로딩
+```java
+public class CalculatorExample.java {
+  public void main(String[] args) {
+    Calculator myCalcu = new Calculator();
+    
+    // 정사각형의 넓이 구하기
+    double result1 = myCalcu.arearectangle(10);
+    
+    // 직사각형의 넓이 구하기
+    double result2 = myCalcu.areaRectangle(10, 20);
+    
+    // 결과 출력
+    System.out.println("정사각형의 넓이 : " + result1);
+    System.out.println("직사각형의 넓이 : " + result2);
+  }
+}
+```
+
+출력 결과
+```java
+정사각형의 넓이 : 100.0
+직사각형의 넓이 : 200.0
+```
+</details>
+
+<details markdown="1">
+<summary>6.9 인스턴스 멤버와 this</summary>
+
+- 인스턴스 멤버란?
+  : 객체(인스턴스) 마다 가지고 있는 필드와 메서드
+     > 이들을 각각 인스턴스 필드, 인스턴스 메서드라고 부름
+
+- 인스턴스 멤버는 객체에 소속된 멤버이기 때문에 객체 없이는 사용할 수 없다.
+
+[ Car.java ] 인스턴스 멤버와 this
+```java
+public class Car {
+  // 필드
+  Stirng model;
+  int speed;
+  
+  // 생성자
+  Car(String model) {
+    this.model = model;
+  }
+  
+  // 메서드
+  void setSpeed(int speed) {
+    this.speed = speed;
+  }
+  
+  void run() { 
+    for(int i=10; i<=50; i+=10) {
+      this.setSpeed(i);
+      System.out.println(this.model + "가 달립니다.(시속 : " + this.speed + "km/h)");
+    }
+  }
+}
+```
+
+[ CarExample.java ] 인스턴스 멤버와 this
+```java
+public class CarExample {
+  public static void main(String[] args) {
+    Car myCar = new Car("포르쉐");
+    Car youCar = new Car("벤츠");
+    
+    myCar.run();
+    youCar.run();
+  }
+}
+```
+
+실행 결과
+
+```java
+포르쉐가 달립니다.(시속 : 10km/h)
+포르쉐가 달립니다.(시속 : 20km/h)
+포르쉐가 달립니다.(시속 : 30km/h)
+포르쉐가 달립니다.(시속 : 40km/h)
+포르쉐가 달립니다.(시속 : 50km/h)
+벤츠가 달립니다.(시속 : 10km/h)
+벤츠가 달립니다.(시속 : 20km/h)
+벤츠가 달립니다.(시속 : 30km/h)
+벤츠가 달립니다.(시속 : 40km/h)
+벤츠가 달립니다.(시속 : 50km/h)
+```
+</details>
+
+<details markdown="1">
+<summary>6.10 정적 멤버와 static</summary>
+
+- 정적(static) 멤버란?
+  : 클래스에 고정된 필드와 메서드 - 정적 필드, 정적 메서드
+  
+- 정적 멤버는 클래스에 소속된 멤버이다.
+  - 객체 내부에 존재하지 않고, 메서드 영역에 존재한다.
+  - 정적 멤버는 객체를 생성하지 않고 클래스로 바로 접근해 사용한다.
+
+### 6.10.1 정적 멤버 선언
+
+다음은 정적 필드와 정적 메서드를 선언하는 방법을 보여준다.(필드 또는 메서드를 선언할 때 **static** 키워드를 붙인다.
+
+```java
+public class 클래스 {
+  // 정적 필드
+  static 타입 필드 [= 초기값];
+  
+  // 정적 메서드
+  static 리턴 타입 메서드( 매개변수선언, ...) { ... }
+}
+```
+
+필드를 선언할 때 인스턴스 필드로 선언할 것인가, 아니면 정적 필드로 선언할 것인가의 판단 기준은 객체마다 가지고 있어야 할 데이터라면 인스턴스 필드로 선언하고, 객체마다 가지고 있을 필요성이 없는 공용적인 데이터라면 정적 필드로 선언하는 것이 좋다.
+
+```java
+public class Calculator {
+  String color;                 // 계산기별로 색깔이 다를 수 있다.(인스턴스 필드로 선언)
+  static double pi = 3.141592;  // 계산기에서 사용하는 파이 값은 동일하다.(정적 필드로 선언)
+```
+
+메서드의 경우, 인스턴스 메서드로 선언할 것인가, 아니면 정적 메서드로 선언할 것인가의 판단 기준은 인스턴스 필드를 이용해서 실행해야 한다면 인스턴스 메서드로 선언하고, 인스턴스 필드를 이용하지 않는다면 정적 메서드로 선언한다.
+
+```java
+public class Calculator {
+  Stirng color;                                         // 인스턴스 필드
+  void setColor(String color) { this.color = color }    // 인스턴스 메서드
+  static int plus(int x, int y) { return x + y; }       // 정적 메서드
+  static int minus(int x, int y) { return x - y; }      // 정적 메서드
+}
+```
+
+---
+
+### 6.10.2 정적 멤버 사용
+
+클래스 이름과 함께 도트(.) 연산자로 접근한다.
+
+```java
+public class Calculator {
+  static double pi = 3.141592;
+  static int plus(int x, int y) { ... }
+  static int minus(int x, int y) { ... }
+}
+```
+
+정적 필드 pi와 정적 메서드 plus(), minus()는 다음과 같이 사용할 수 있다.
+
+```java
+double result1 = 10 * 10 * Calculator.pi;
+int result2 = Calculator.plus(10, 5);
+int result3 = Calculator.minus(10, 5);
+```
+
+정적 필드와 정적 메서드는 원칙적으로는 클래스 이름으로 접근해야 하지만 다음과 같이 객체 참조 변수로도 접근이 가능하다.
+
+```java
+Calculator myCalcu = new Calculator();
+double result1 = 10 * 10 * myCalcu.pi;
+int result2 = myCalcu.plus(10, 5);
+int result3 = myCalcu.minus(10, 5);
+```
+
+---
+
 ### 6.10.3 정적 초기화 블록
 정적 필드는 다음과 같이 필드 선언과 동시에 초기값을 주는 것이 보통이다.
 
@@ -1033,21 +1711,49 @@ public class Television {
 }
 ```
 
+---
+
 ### 6.10.4 정적 메서드와 블록 선언 시 주의할 점
 - 정적 메서드와 정적 블록을 선언할 때 주의할 점은 객체가 없어도 실행된다는 특징 때문에, 이들 내부에 인스턴스 메서드를 사용할 수 없다.
 - 객체 자신의 참조인 `this` 키워드도 사용이 불가능하다.
 > static은 static 끼리 논다.
+
+[ Car.java ] 정적 메서드와 블록 선언 시 주의할 점
+
+```java
+public class Car {
+  int speed;
+  
+  void run() {
+    System.out.println(speed + "으로 달립니다.");
+  }
+  
+  public static void main(String[] args) {
+    Car myCar = new Car();
+    myCar.speed = 60;
+    myCar.run();
+  }
+}
+```
+
+실행 결과
+```java
+60으로 달립니다.
+```
+---
 
 ### 6.10.5 싱글톤(Singleton)
 - 하나의 어플리케이션 내에서 단 하나만 생성되는 객체(뒤로 미룸!)
 
 </details>
 
-## 6.11 final 필드와 상수
+<details markdown="1">
+<summary>6.11 final 필드와 상수</summary>
+
 ### 6.11.1 final 필드
 - 최종적인 값을 가지고 있는 필드 = 값을 변경할 수 없는 필드
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170189712-2f56e51c-f70c-4fac-82bd-8185d925aa5e.png" width="300" height="450"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170189712-2f56e51c-f70c-4fac-82bd-8185d925aa5e.png"></p>
 
 final 필드의 초기값을 줄 수 있는 방법은 두 가지 밖에 없다.
 
@@ -1094,6 +1800,8 @@ Korea
 계백
 ```
 
+---
+
 ### 6.11.2 상수(static final)
 일반적으로 불변의 값을 상수라고 부른다. final 필드는 한 번 초기화되면 수정할 수 없는 필드라고 했다. 그렇다면 final 필드를 상수라고 불러도 되지 않을까? 하지만 final 필드를 상수라고 부르진 않는다. 불변의 값은 객체마다 저장할 필요가 없는 공용성을 띄고 있으며, 여러 가지 값으로 초기화될 수 없기 때문이다. final 필드는 객체마다 저장되고, 생성자의 매개값을 통해서 여러 가지 값을 가질 수 있기 때문에 상수가 될 수 없다.
 
@@ -1114,13 +1822,19 @@ p2.printPi();
 
 클래스 변수(필드)는 클래스당 하나만 가지고 있다.(클래스 안에서 하나씩 가지고 있다는 뜻)
 
+</details>
 
-### 6.12 패키지
+<details markdown="1">
+<summary>6.12 패키지</summary>
+
 디렉터리라고 이해
 
+</details>
 
-### 6.13 접근 제한자
-public, protected, 생략("default"라고 부른다), private
+<details markdown="1">
+<summary>6.13 접근 제한자</summary>
+
+- public, protected, 생략("default"라고 부른다), private
 
 접근 지정자의 목적
 - 클래스나 일부 멤버를 **공개하지 않고** 다른 클래스에서 **접근하지 못하도록** 막음(**information hiding**)
@@ -1134,19 +1848,23 @@ class A {      // 이렇게 감싸놓은 것이 캡슐화(관련된 정보를 �
 ```
 
 - 각 접근 제한자에 따른 클래스나 멤버의 공개 범위
- - private : 나 이외에는 허용 불가
- - 생략(default) : 같은 패키지의 클래스에만 허용
- - protected : 동일패키지의? 와? 자식클래스에만 허용
- - public : 다 허용
+  - private : 나 이외에는 허용 불가
+  - 생략(default) : 같은 패키지의 클래스에만 허용
+  - protected : 동일패키지와 자식클래스에만 허용
+  - public : 다 허용
 
+<p align="center"><img src="https://user-images.githubusercontent.com/106001755/173542304-0fe2636e-1b57-4280-9d0b-9dfb04cebd49.png"></p>
 
-### 6.14 Getter와 Setter 메서드
+</details>
 
-일반적으로 객체 지향 프로그래밍에서 객체의 데이터는 객체 외부에서 직접적으로 접근하는 것을 막는다.(**정보 은닉**)
+<details markdown="1">
+<summary>6.14 Getter와 Setter 메서드</summary>
 
-객체 지향 프로그래밍에서는 **메서드를 통해서 데이터를 변경**하는 방법을 선호한다.
+- 일반적으로 객체 지향 프로그래밍에서 객체의 데이터는 객체 외부에서 직접적으로 접근하는 것을 막는다.(**정보 은닉**)
 
-클래스를 선언할 때 필드(속성)는 반드시 private 접근 제한을 해야한다.
+- 객체 지향 프로그래밍에서는 **메서드를 통해서 데이터를 변경**하는 방법을 선호한다.
+
+- 클래스를 선언할 때 필드(속성)는 반드시 private 접근 제한을 해야한다.
 
 - Getter
   - 속성값을 읽기 위한 메서드
@@ -1159,7 +1877,10 @@ class A {      // 이렇게 감싸놓은 것이 캡슐화(관련된 정보를 �
 
 > **정보 은닉**을 위해 꼭 필요하다.
 
-### 6.15 어노테이션
+</details>
+
+<details markdown="1">
+<summary>6.15 어노테이션</summary>
 
 - 주석과 같은 의미
 
