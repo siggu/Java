@@ -663,7 +663,7 @@ intArray.length = 10; // 잘못된 코드
 
 <p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170810621-f5c82315-f010-4a6b-812d-f311cffcdaed.png"></p>
 
-- 자바 언어는 영어 대소문자를 다른 문자로 취급하기 대문에 클래스 이름도 영어 대소문자를 구분한다.
+- 자바 언어는 영어 대소문자를 다른 문자로 취급하기 때문에 클래스 이름도 영어 대소문자를 구분한다.
 - 클래스 이름이 단일 단어라면 첫 자를 대문자로 하고 나머지는 소문자로 작성하는 것이 관례이다.
 - 서로 다른 단어가 혼합된 이름을 사용한다면 각 단어의 첫 머리 글자는 대문자로 작성하는 것이 관례이다.
 > Calculator, Car, Menber, ChatClient, ChatServer, Web_Browser
@@ -740,10 +740,10 @@ public class Student {
 ```java
 public class StudentExample {
   public static void main(String[] args) {
-    Student s1 = new Student;
+    Student s1 = new Student();
     System.out.println("s1 변수가 Student 객체를 참조합니다.");
     
-    Student s2 = new Student;
+    Student s2 = new Student();
     System.out.println("s1 변수가 Student 객체를 참조합니다.");
   }
 }
@@ -791,7 +791,7 @@ public class Student {
 
 메서드는 객체의 동작에 해당하는 중괄호 {} 블록을 말한다. 중괄호 블록은 이름을 가지고 있는데, 이것이 메서드 이름이다. 메서드를 호출하게 되면 중괄호 블록에 있는 모든 코드들이 일괄적으로 실행된다. 메서드는 필드를 읽고 수정하는 역할도 하지만, 다른 객체를 생성해서 다양한 기능을 수행하기도 한다. 메서드는 객체 간의 데이터 전달의 수단으로 사용된다. 외부로부터 매개값을 받을 수도 있고, 실행 후 어떤 값을 리턴할 수도 있다.
 
-<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/170898853-c7543996-3460-4b15-a9eb-315db2755b2f.png"></p>
+<p align = "center"><img src = "https://user-images.githubusercontent.com/106001755/173581945-4793a96a-f9a2-4de8-8596-b21fd6dd6903.png"></p>
 
 </details>
 
