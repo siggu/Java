@@ -1153,17 +1153,18 @@ public class CarExmaple {
     System.out.println("car1.company : " + car1.company);
     System.out.println();
     
-    Car car2 = new Car();
+    Car car2 = new Car("자가용");
     System.out.println("car2.company : " + car2.company);
     System.out.println("car2.model : " + car2.model);
     System.out.println();
     
-    Car car3 = new Car();
+    Car car3 = new Car("자가용", "빨강");
     System.out.println("car3.company : " + car3.company);
     System.out.println("car3.model : " + car3.model);
     System.out.println("car3.color : " + car3.color);
+    System.out.println();
     
-    Car car4 = new Car();
+    Car car4 = new Car("자가용", "검정", 200);
     System.out.println("car4.company : " + car4.company);
     System.out.println("car4.model : " + car4.model);
     System.out.println("car4.color : " + car4.color);
@@ -1185,7 +1186,7 @@ car3.color : 빨강
 
 car4.company : 현대자동차
 car4.model : 자가용
-car4.color : 빨강
+car4.color : 
 car4.maxSpeed : 200
 ```
 
@@ -1242,18 +1243,18 @@ public class CarExample {
     System.out.println("car1.company : " + car1.company);
     System.out.pritnln();
     
-    Car car2 = new Car();
+    Car car2 = new Car("자가용");
     System.out.println("car2.company : " + car2.company);
     System.out.println("car2.model : " + car2.model);
     System.out.println();
     
-    Car car3 = new Car();
+    Car car3 = new Car("자가용", "빨강");
     System.out.println("car3.company : " + car3.company);
     System.out.println("car3.model : " + car3.model);
     System.out.println("car3.color : " + car3.color);
     System.out.println();
     
-    Car car4 = new Car();
+    Car car4 = new Car("택시", "검정", 200);
     System.out.println("car4.company : " + car4.company);
     System.out.println("car4.model : " + car4.model);
     System.out.println("car4.color : " + car4.color);
@@ -1377,6 +1378,35 @@ public class Calculator {
     System.out.println("전원을 끕니다.");
   }
 }
+```
+
+외부 클래스에서 Calculator 클래스의 메서드를 호출하기 위해서는 다음 예제와 같이 3라인에서 Calculator 객체를 생성하고 참조 변수인 myCalc를 이용해야 한다.myCalc 변수에 도트(.)와 함께 메서드 이름(매개값, ...) 형태로 호출하면 메서드 블록 이 실행된다.
+
+[ CalculatorExample.java ] 메서드 호출
+```java
+public class CalculatorExample {
+  public static void main(String[] args) {
+    Calculator myCalc = new Calculator();
+    myCalc.powerOn();
+    
+    int result1 = myCalc.plus(5, 6);
+    System.out.println("result1 : " + result1);
+    
+    byte x = 10;
+    byte y = 4;
+    double result2 = myCalc.divide(x, y);
+    System.out.println("result2 : " + result2);
+    myCalc.powerOff();
+  }
+}
+```
+
+실행 결과
+```java
+전원을 켭니다.
+result1 : 11
+result2 : 2.5
+전원을 끕니다.
 ```
 
 ---
