@@ -264,6 +264,9 @@ int result = value + 10;      // 변수 value 값을 읽고 10을 더한 결과�
 ```
 </details>
 
+### 2.1.4 변수의 사용 범위
+
+변수는 중괄호 {} 블록 내에서 선언되고 사용된다. 중괄호 블록을 사용하는 곳은 클래스, 생성자, 메서드
 ## Chapter 05 참조 타입
 <details markdown="1">
 <summary>5.1 데이터 타입 분류</summary>
